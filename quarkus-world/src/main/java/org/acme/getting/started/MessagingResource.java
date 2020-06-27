@@ -15,6 +15,7 @@ public class MessagingResource {
     public static final String RED = "\033[0;31m";     // RED
     public static final String GREEN = "\033[0;32m";   // GREEN
     public static final String BLUE = "\033[0;34m";    // BLUE
+    public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_RESET = "\u001B[0m";
 
     private static final String COMPUTER_NAME = "Quarkus";
@@ -26,9 +27,9 @@ public class MessagingResource {
     public String message(@PathParam String messageContent) {
         System.out.print("");
         if (messageContent != null) {
-            System.out.printf("%sOther person:%s %s%n", BLUE, ANSI_RESET, messageContent);
+            System.out.printf("%sOther person:%s %s%n", ANSI_PURPLE, ANSI_RESET, messageContent);
             String response_from_eliza = eliza.ask(messageContent);
-            System.out.printf("%s%s:%s %s%n", BLUE, COMPUTER_NAME, ANSI_RESET, response_from_eliza);
+            System.out.printf("%s%s:%s %s%n", ANSI_PURPLE, COMPUTER_NAME, ANSI_RESET, response_from_eliza);
             return response_from_eliza;
         }
         else {
