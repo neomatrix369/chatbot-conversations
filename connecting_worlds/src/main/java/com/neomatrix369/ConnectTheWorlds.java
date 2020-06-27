@@ -53,7 +53,6 @@ public class ConnectTheWorlds {
 
                 each_conversation.put(firstWorld, response_as_string);
 
-//                System.out.printf("%s answers to %s: %s%n", firstWorld, theOtherWorld, response_as_string);
                 System.out.printf("%n");
                 Thread.sleep(4000);
 
