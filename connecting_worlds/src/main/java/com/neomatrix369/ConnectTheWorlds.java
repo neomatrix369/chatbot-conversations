@@ -43,7 +43,7 @@ public class ConnectTheWorlds {
         List<Map<String, String>> messages_exchanged = new ArrayList<>();
 
         Map<String, String> each_conversation = new HashMap<>();
-        for (;;) {
+        while (true) {
             for (String firstWorld : WORLDS.keySet()) {
                 Map<String, String> world = WORLDS.get(firstWorld);
                 String https_url = world.get("url");
