@@ -10,27 +10,12 @@ import java.util.*;
  * Hello world!
  */
 public class ConnectTheWorlds {
-    private static final Map<String, String> Helidon = new HashMap<>() {
-        {
-            put("url", "http://localhost:9090/message");
-            put("response_format", "application/json");
-        }
-    };
-
-    private static final Map<String, String> Quarkus = new HashMap<>() {
-        {
-            put("url", "http://localhost:8080/message");
-            put("response_format", "application/text");
-        }
-    };
-
     private static final Map<String, Map<String, String>> WORLDS =
-            new HashMap<>() {
-                {
-                    put("Helidon", Helidon);
-                    put("Quarkus", Quarkus);
-                }
-            };
+        Map.of("Helidon", Map.of("url", "http://localhost:9090/message", 
+                                 "response_format", "application/json"), 
+               "Quarkus", Map.of("url", "http://localhost:8080/message", 
+                                 "response_format", "application/text")
+        );
 
     // https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
     public static final String WHITE_BRIGHT = "\033[0;97m";
