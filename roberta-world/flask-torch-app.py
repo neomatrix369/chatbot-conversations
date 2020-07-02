@@ -40,7 +40,7 @@ def load_model(_model_type="base"):
 def eval_model():
     global model, model_type
     if model:
-        print("Model loaded, evaluating now")
+        print("Model loaded, evaluating now.")
         model.eval()
         print(f'Finished evaluating Model {BLUE}{model_name} ({model_type}){ANSI_RESET}.')
     else:
@@ -79,12 +79,20 @@ def drop_words(message, exclude_word):
     if number_of_words > 3:
         try_again = True
         random_word = ""
-        while try_again:
-            randon_word_index = round(rnd.random() * number_of_words) - 1
-            random_word = tokenised_message[randon_word_index]
-            try_again = (random_word in [exclude_word, '-', '--', '.', '?'])
 
-        message.replace(random_word, '')
+        drop_n_words = 1
+        if number_of_words > 10:
+            drop_n_words = number_of_words // 5
+
+        drop_words_counter = 0
+        while drop_words_counter < drop_n_words:
+            while try_again:
+                randon_word_index = round(rnd.random() * number_of_words) - 1
+                random_word = tokenised_message[randon_word_index]
+                try_again = (random_word in [exclude_word, '-', '--', '.', '?'])
+            drop_words_counter += 1
+
+            message = message.replace(random_word, '')
         return message.replace('  ', ' ')
 
     return message
