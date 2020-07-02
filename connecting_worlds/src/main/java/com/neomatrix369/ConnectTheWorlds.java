@@ -11,11 +11,11 @@ import java.util.*;
  */
 public class ConnectTheWorlds {
     private static final Map<String, Map<String, String>> WORLDS =
-        Map.of("Helidon", Map.of("url", "http://localhost:9090/message", 
-                                 "response_format", "application/json"), 
-               "Quarkus", Map.of("url", "http://localhost:8080/message", 
-                                 "response_format", "application/text")
-        );
+            Map.of("Helidon", Map.of("url", "http://localhost:9090/message",
+                    "response_format", "application/json"),
+                    "Quarkus", Map.of("url", "http://localhost:8080/message",
+                            "response_format", "application/text")
+            );
 
     // https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
     public static final String WHITE_BRIGHT = "\033[0;97m";
@@ -24,6 +24,7 @@ public class ConnectTheWorlds {
     public static final String BLUE = "\033[0;34m";    // BLUE
     public static final String GREEN = "\033[0;32m";   // GREEN
     public static final String ANSI_RESET = "\u001B[0m";
+
     public static void main(String[] args) throws InterruptedException {
         List<Map<String, String>> messages_exchanged = new ArrayList<>();
 
@@ -36,35 +37,44 @@ public class ConnectTheWorlds {
                 String response_as_string = "";
                 String messageFromTheOtherWorld = getMessageFromTheOtherWorld(firstWorld, each_conversation);
                 String theOtherWorld = getTheOtherWorld(firstWorld);
-                System.out.printf("%s%s => %s%s: %s%n",
-                        GREEN, theOtherWorld, firstWorld, ANSI_RESET,
-                        messageFromTheOtherWorld);
-                if (response_format.toLowerCase().contains("json")) {
-                    HttpResponse<JsonNode> response = Unirest
-                            .get(java.lang.String.format("%s/%s", https_url, messageFromTheOtherWorld))
-                            .asJson();
-                    response_as_string = response.getBody().getObject().getString("message");
-                } else {
-                    HttpResponse<String> response = Unirest
-                            .get(java.lang.String.format("%s/%s", https_url, messageFromTheOtherWorld))
-                            .asString();
-                    response_as_string = response.getBody();
+
+                try {
+                    if (response_format.toLowerCase().contains("json")) {
+                        HttpResponse<JsonNode> response = Unirest
+                                .get(java.lang.String.format("%s/%s", https_url, messageFromTheOtherWorld))
+                                .asJson();
+                        response_as_string = response.getBody()
+                                .getObject()
+                                .getString("message");
+                    } else {
+                        HttpResponse<String> response = Unirest
+                                .get(java.lang.String.format("%s/%s", https_url, messageFromTheOtherWorld))
+                                .asString();
+                        response_as_string = response.getBody();
+                    }
+
+                    System.out.printf("%s%s => %s%s: %s%n",
+                            GREEN, theOtherWorld, firstWorld, ANSI_RESET,
+                            messageFromTheOtherWorld);
+
+                    each_conversation.put(firstWorld, response_as_string);
+                    messages_exchanged.add(each_conversation);
+
+                    System.out.printf("%n");
+                } catch (Exception ex) {
+                    System.out.println(String.format("%s: unable to connect with world '%s'. " +
+                            "Please start that world %s to start a conversation.",
+                            "\uD83D\uDE1E", firstWorld, firstWorld));
                 }
 
-                each_conversation.put(firstWorld, response_as_string);
-
-                System.out.printf("%n");
                 Thread.sleep(4000);
-
-                messages_exchanged.add(each_conversation);
-
             }
         }
     }
 
     private static String getTheOtherWorld(String world_key) {
-        for (String key: WORLDS.keySet()) {
-            if (! world_key.equals(key) ) {
+        for (String key : WORLDS.keySet()) {
+            if (!world_key.equals(key)) {
                 return key;
             }
         }
@@ -73,8 +83,8 @@ public class ConnectTheWorlds {
 
     private static String getMessageFromTheOtherWorld(String world_key,
                                                       Map<String, String> each_conversation) {
-        for (String key: each_conversation.keySet()) {
-            if (! world_key.equals(key) ) {
+        for (String key : each_conversation.keySet()) {
+            if (!world_key.equals(key)) {
                 return each_conversation.get(key);
             }
         }
