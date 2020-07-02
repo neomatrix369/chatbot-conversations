@@ -41,12 +41,12 @@ public class ConnectTheWorlds {
                         messageFromTheOtherWorld);
                 if (response_format.toLowerCase().contains("json")) {
                     HttpResponse<JsonNode> response = Unirest
-                            .get(https_url + "/" + messageFromTheOtherWorld)
+                            .get(java.lang.String.format("%s/%s", https_url, messageFromTheOtherWorld))
                             .asJson();
                     response_as_string = response.getBody().getObject().getString("message");
                 } else {
                     HttpResponse<String> response = Unirest
-                            .get(https_url + "/" + messageFromTheOtherWorld)
+                            .get(java.lang.String.format("%s/%s", https_url, messageFromTheOtherWorld))
                             .asString();
                     response_as_string = response.getBody();
                 }
