@@ -113,6 +113,11 @@ def add_or_insert_mask_to(message):
     return message.strip() + f' {MASK_TOKEN}'
 
 
+def get_any_answer_from(response):
+    random_answer_index = round(rnd.random() * len(response)) - 1
+    return response[random_answer_index][0], response[random_answer_index][1]
+
+
 @app.route('/send')
 def send():
     global model_type
@@ -126,12 +131,17 @@ def send():
 
     masked_message = add_or_insert_mask_to(message)
 
+    confidence_score = 1.00
     try:
-        response = model.fill_mask(masked_message, topk=3)
-        if response:
-            response = response[0][0]
-        else:
-            response = "<No response(s) returned>"
+        same_answer_try_again = True
+        while same_answer_try_again:
+            response = model.fill_mask(masked_message, topk=3)
+            if response:
+                response, confidence_score = get_any_answer_from(response)
+                response = response.strip()
+            else:
+                response = "<No response(s) returned>"
+            same_answer_try_again = message == response
 
         if message == response:
             print(f"{RED}masked_message{ANSI_RESET}:", masked_message)
@@ -139,7 +149,7 @@ def send():
         print(f"Error parsing this sentence '{masked_message}', due to '{str(ex)}'")
         response = "<error> I'm having internal problems, when trying to work out what to say."
 
-    print(f"{YELLOW}{computer_name}{ANSI_RESET}: {response}")
+    print(f"{YELLOW}{computer_name}{ANSI_RESET}: {response} [confidence: {round(confidence_score * 100, 3)}%]")
     print()
     
     return response
