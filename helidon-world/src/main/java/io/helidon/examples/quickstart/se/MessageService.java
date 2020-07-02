@@ -74,7 +74,7 @@ public class MessageService implements Service {
                             final ServerResponse response) {
         String message = request.path().param("message");
         System.out.print("");
-        System.out.printf("%sOther Person:%s %s%n", RED, ANSI_RESET, message);
+        System.out.printf("%sOther world:%s %s%n", RED, ANSI_RESET, message);
         String eliza_response = eliza.ask(message);
         System.out.printf("%s%s%s: %s%n", RED, COMPUTER_NAME, ANSI_RESET, eliza_response);
 

@@ -27,7 +27,7 @@ public class MessagingResource {
     public String message(@PathParam String messageContent) {
         System.out.print("");
         if (messageContent != null) {
-            System.out.printf("%sOther person:%s %s%n", ANSI_PURPLE, ANSI_RESET, messageContent);
+            System.out.printf("%sOther world:%s %s%n", ANSI_PURPLE, ANSI_RESET, messageContent);
             String response_from_eliza = eliza.ask(messageContent);
             System.out.printf("%s%s:%s %s%n", ANSI_PURPLE, COMPUTER_NAME, ANSI_RESET, response_from_eliza);
             return response_from_eliza;

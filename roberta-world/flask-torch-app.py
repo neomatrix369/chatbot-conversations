@@ -25,15 +25,15 @@ def load_model(_model_type="base"):
     global model, model_type
     model_type=_model_type
     if model:
-        return f'Model {model_name} ({model_type}) already loaded.'
+        return f'Model {BLUE}{model_name} ({model_type}){ANSI_RESET} already loaded.'
     else:
-        print(f'Model {model_name} ({model_type}) not loaded, loading now...')
+        print(f'Model {BLUE}{model_name} ({model_type}){ANSI_RESET} not loaded, loading now...')
         if model_type is None:
             model_type = "base"
         PATH = f'./models/roberta.{model_type}'
         model = RobertaModel.from_pretrained(PATH)
         eval_model()
-        print(f'Model {model_name} ({model_type}) loaded and evaluated.')
+        print(f'Model {BLUE}{model_name} ({model_type}){ANSI_RESET} loaded and evaluated.')
         return model
 
 
@@ -42,9 +42,9 @@ def eval_model():
     if model:
         print("Model loaded, evaluating now")
         model.eval()
-        print(f'Finished evaluating Model {model_name} ({model_type}).')
+        print(f'Finished evaluating Model {BLUE}{model_name} ({model_type}){ANSI_RESET}.')
     else:
-        print(f'Model {model_name} ({model_type}) not loaded.')
+        print(f'Model {BLUE}{model_name} ({model_type}){ANSI_RESET} not loaded.')
 
 
 @app.before_first_request
@@ -52,9 +52,10 @@ def on_startup():
     global model
     print("This is the first request hence loading the model")
     print("---")
-    print("{computer_name} will either repeat the same message the other person sends.")
+    print(f"{YELLOW}{computer_name}{ANSI_RESET} will either repeat the same message the Other world sends.")
     print("Or will change a word or two in a sentence when replying. Rarely will a different sentence be sent out.")
-    print("As you can see, {computer_name} can guess the whole sentence even if you hide/mask a word in it.")
+    print("In this process new sentences can be produced but sometimes erroneous ones as well, watch out!")
+    print(f"As you can see, {YELLOW}{computer_name}{ANSI_RESET} can guess the whole sentence even if you hide/mask a word in it.")
     print("---")
 
     model = load_model("base")
@@ -71,6 +72,24 @@ def shuffle_words(message):
     return " ".join(split_sentence)
 
 
+def drop_words(message, exclude_word):
+    tokenised_message = message.split()
+    number_of_words = len(tokenised_message)
+
+    if number_of_words > 3:
+        try_again = True
+        random_word = ""
+        while try_again:
+            randon_word_index = round(rnd.random() * number_of_words) - 1
+            random_word = tokenised_message[randon_word_index]
+            try_again = (random_word in [exclude_word, '-', '--', '.', '?'])
+
+        message.replace(random_word, '')
+        return message.replace('  ', ' ')
+
+    return message
+
+
 def add_or_insert_mask_to(message):
     if MASK_TOKEN in message:
         return message
@@ -81,7 +100,7 @@ def add_or_insert_mask_to(message):
     if number_of_words > 2:
         randon_word_index = round(rnd.random() * number_of_words) - 1
         random_word = tokenised_message[randon_word_index]
-        return shuffle_words(message.replace(random_word, MASK_TOKEN))
+        return drop_words(message, random_word).replace(random_word, MASK_TOKEN)
 
     return message.strip() + f' {MASK_TOKEN}'
 
@@ -95,15 +114,22 @@ def send():
     message = request.args.get('message')
 
     print()
-    print(f"{YELLOW}Other Person:{ANSI_RESET}: {message}")
+    print(f"{YELLOW}Other world:{ANSI_RESET}: {message}")
 
     masked_message = add_or_insert_mask_to(message)
 
-    response = model.fill_mask(masked_message, topk=3)
-    if response:
-        response = response[0][0]
-    else:
-        response = "<No response(s) returned>"
+    try:
+        response = model.fill_mask(masked_message, topk=3)
+        if response:
+            response = response[0][0]
+        else:
+            response = "<No response(s) returned>"
+
+        if message == response:
+            print(f"{RED}masked_message{ANSI_RESET}:", masked_message)
+    except Exception as ex:
+        print(f"Error parsing this sentence '{masked_message}', due to '{str(ex)}'")
+        response = "<error> I'm having internal problems, when trying to work out what to say."
 
     print(f"{YELLOW}{computer_name}{ANSI_RESET}: {response}")
     print()
