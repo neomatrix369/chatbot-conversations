@@ -44,51 +44,56 @@ public class ConnectTheWorlds {
 
     public static void main(String[] args) throws InterruptedException {
         System.out.println(String.format("Args passed in: '%s'",  args));
-        List<String> worldLoaded = new ArrayList<>(WORLDS.keySet());
-        if ((args != null) && (args.length > 1)) {
-            worldLoaded = Arrays.asList(args[0].split(","));
+        List<String> worldsLoaded = new ArrayList<>(WORLDS.keySet());
+
+        if ((args != null) && (args.length > 0)) {
+            if (args[0].trim().length() > 0) {
+                List<String> worldsPassedIn = Arrays.asList(args[0].split(","));
+                worldsLoaded = worldsPassedIn;
+            }
         }
-        System.out.println(String.format("Worlds available: %s", worldLoaded));
+
+        System.out.println(String.format("Worlds available: %s", worldsLoaded));
 
         List<Map<String, String>> messages_exchanged = new ArrayList<>();
 
         Map<String, String> each_conversation = new HashMap<>();
         while (true) {
-            for (String firstWorld : worldLoaded) {
-                Map<String, String> world = WORLDS.get(firstWorld);
-                String https_url = world.get("url");
-                String response_format = world.get("response_format");
-                String response_as_string = "";
-                String theOtherWorld = getTheOtherWorld(firstWorld, worldLoaded);
-                String messageFromTheOtherWorld = getMessageFromTheOtherWorld(firstWorld, each_conversation);
+            for (String firstWorldKey : worldsLoaded) {
+                Map<String, String> firstWorld = WORLDS.get(firstWorldKey);
+                String https_url = firstWorld.get("url");
+                String response_format = firstWorld.get("response_format");
+                String responseToFirstWorldFromOtherWorld = "";
+                String theOtherWorld = getTheOtherWorld(firstWorldKey, worldsLoaded);
+                String messageFromOtherWorld = getMessageFromTheOtherWorld(theOtherWorld, each_conversation);
 
                 try {
                     if (response_format.toLowerCase().contains("json")) {
                         HttpResponse<JsonNode> response = Unirest
-                                .get(java.lang.String.format("%s%s", https_url, messageFromTheOtherWorld))
+                                .get(java.lang.String.format("%s%s", https_url, messageFromOtherWorld))
                                 .asJson();
-                        response_as_string = response.getBody()
+                        responseToFirstWorldFromOtherWorld = response.getBody()
                                 .getObject()
                                 .getString("message");
                     } else {
                         HttpResponse<String> response = Unirest
-                                .get(java.lang.String.format("%s%s", https_url, messageFromTheOtherWorld))
+                                .get(java.lang.String.format("%s%s", https_url, messageFromOtherWorld))
                                 .asString();
-                        response_as_string = response.getBody();
+                        responseToFirstWorldFromOtherWorld = response.getBody();
                     }
 
                     System.out.printf("%s%s => %s%s: %s%n",
-                            GREEN, theOtherWorld, firstWorld, ANSI_RESET,
-                            messageFromTheOtherWorld);
+                            GREEN, theOtherWorld, firstWorldKey, ANSI_RESET,
+                            messageFromOtherWorld);
 
-                    each_conversation.put(firstWorld, response_as_string);
+                    each_conversation.put(firstWorldKey, responseToFirstWorldFromOtherWorld);
                     messages_exchanged.add(each_conversation);
 
                     System.out.printf("%n");
                 } catch (Exception ex) {
                     System.out.println(String.format("%s: unable to connect with world '%s'. " +
                             "Please start that world %s to start a conversation.",
-                            "\uD83D\uDE1E", firstWorld, firstWorld));
+                            "\uD83D\uDE1E", firstWorldKey, firstWorldKey));
                 }
 
                 Thread.sleep(4000);
@@ -100,7 +105,7 @@ public class ConnectTheWorlds {
         List<String> copy_of_worlds = new ArrayList<>(worlds);
         copy_of_worlds.remove(world_key);
         if (copy_of_worlds.size() == 1) {
-            return world_key;
+            return copy_of_worlds.get(0);
         }
         int randomIndex = getRandomNumber(copy_of_worlds.size());
         return copy_of_worlds.get(randomIndex);
@@ -108,12 +113,12 @@ public class ConnectTheWorlds {
 
     private static String getMessageFromTheOtherWorld(String world_key,
                                                       Map<String, String> each_conversation) {
-        for (String key : each_conversation.keySet()) {
-            if (!world_key.equals(key)) {
-                return each_conversation.get(key);
-            }
+        String message = null;
+        if (each_conversation.size() > 0) {
+            message = each_conversation.get(world_key);
         }
-        return getRandomGreetingMessage();
+
+        return message == null ? getRandomGreetingMessage() : message;
     }
 
     private static String getRandomGreetingMessage() {
