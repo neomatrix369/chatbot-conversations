@@ -1,4 +1,4 @@
-import random as rnd
+mport random as rnd
 from flask import Flask
 from flask import request
 
@@ -64,7 +64,7 @@ def on_startup():
 
 
 @app.route('/status')
-def status():
+def status() 
     return 'OK!'
 
 
@@ -129,7 +129,7 @@ def send():
     message = request.args.get('message')
 
     print()
-    print(f"{YELLOW}Other world:{ANSI_RESET}: {message}")
+    print(f"{YELLOW}Other world{ANSI_RESET}: {message}")
 
     masked_message = add_or_insert_mask_to(message)
 
