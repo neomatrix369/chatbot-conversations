@@ -11,23 +11,26 @@ You will need:
 
 # Usage
 
-## Run your app locally using the built-in web server
+## Installing requirements (one-off)
 
 ```bash
-## one-off installation
 pip install -r requirements.txt
 ```
+
+## Run your app locally using the built-in web server
 
 ```
 ## running the chat server
 $ FLASK_APP=flask-torch-app.py flask run -p 7070
+```
 
 or
 
+```
 ## running the chat server in dev/debug mode
 $ FLASK_ENV=development FLASK_APP=flask-torch-app.py flask run -p 7070
-
 ```
+
 Runs the above ML server, in order to be able to send questions to the ML server and get an answer (if it can return one) with confidence scores. The server will stand up at [http://localhost:7070](http://localhost:7070) for REST API calls.
 
 ## Download RobertaModels
@@ -40,11 +43,12 @@ Or use the shell script provided:
 
 ```bash
 ./download-roberta-model.sh    ## downloads roberta.base by default
+```
 
 or
 
+```
 ./download-roberta-model.sh large
-
 ```
 
 Although there is a chance the urls might change the shell script might not work.
