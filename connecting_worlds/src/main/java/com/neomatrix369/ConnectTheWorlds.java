@@ -11,9 +11,11 @@ import java.util.*;
  */
 public class ConnectTheWorlds {
     private static final Map<String, Map<String, String>> WORLDS =
-            Map.of("Helidon", Map.of("url", "http://localhost:9090/message",
+            Map.of("Helidon", Map.of("url", "http://localhost:9090/message/",
                     "response_format", "application/json"),
-                    "Quarkus", Map.of("url", "http://localhost:8080/message",
+                    "Quarkus", Map.of("url", "http://localhost:8080/message/",
+                            "response_format", "application/text"),
+                    "Roberta", Map.of("url", "http://localhost:7070/send?message=",
                             "response_format", "application/text")
             );
 
@@ -41,14 +43,14 @@ public class ConnectTheWorlds {
                 try {
                     if (response_format.toLowerCase().contains("json")) {
                         HttpResponse<JsonNode> response = Unirest
-                                .get(java.lang.String.format("%s/%s", https_url, messageFromTheOtherWorld))
+                                .get(java.lang.String.format("%s%s", https_url, messageFromTheOtherWorld))
                                 .asJson();
                         response_as_string = response.getBody()
                                 .getObject()
                                 .getString("message");
                     } else {
                         HttpResponse<String> response = Unirest
-                                .get(java.lang.String.format("%s/%s", https_url, messageFromTheOtherWorld))
+                                .get(java.lang.String.format("%s%s", https_url, messageFromTheOtherWorld))
                                 .asString();
                         response_as_string = response.getBody();
                     }
