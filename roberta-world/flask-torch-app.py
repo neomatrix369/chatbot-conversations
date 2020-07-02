@@ -23,7 +23,7 @@ computer_name = model_name
 
 def load_model(_model_type="base"):
     global model, model_type
-    model_type=_model_type
+    model_type = _model_type
     if model:
         return f'Model {BLUE}{model_name} ({model_type}){ANSI_RESET} already loaded.'
     else:
@@ -58,7 +58,9 @@ def on_startup():
     print(f"As you can see, {YELLOW}{computer_name}{ANSI_RESET} can guess the whole sentence even if you hide/mask a word in it.")
     print("---")
 
-    model = load_model("base")
+    model = load_model("base")   ### option params: large, large.mnli or large.wsc
+    ## See https://github.com/pytorch/fairseq/blob/master/examples/roberta/README.md#pre-trained-models
+    ## for more details about the above model types.
 
 
 @app.route('/status')
