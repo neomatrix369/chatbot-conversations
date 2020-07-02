@@ -97,12 +97,13 @@ public class ConnectTheWorlds {
     }
 
     private static String getTheOtherWorld(String world_key, List<String> worlds) {
-        for (String key : worlds) {
-            if (!world_key.equals(key)) {
-                return key;
-            }
+        List<String> copy_of_worlds = new ArrayList<>(worlds);
+        copy_of_worlds.remove(world_key);
+        if (copy_of_worlds.size() == 1) {
+            return world_key;
         }
-        return world_key;
+        int randomIndex = getRandomNumber(copy_of_worlds.size());
+        return copy_of_worlds.get(randomIndex);
     }
 
     private static String getMessageFromTheOtherWorld(String world_key,
@@ -119,8 +120,11 @@ public class ConnectTheWorlds {
         List<String> messages = Arrays.asList(
                 "Hello", "How are you today?", "How are things?", "Are you having a good day?"
         );
-        Random random = new Random();
-        int random_int = random.nextInt(messages.size());
-        return messages.get(random_int);
+        int randomIndex = getRandomNumber(messages.size());
+        return messages.get(randomIndex);
+    }
+
+    private static int getRandomNumber(int maxValue) {
+        return new Random().nextInt(maxValue);
     }
 }
