@@ -43,8 +43,9 @@ public class ConnectTheWorlds {
     public static final String ANSI_RESET = "\u001B[0m";
 
     public static void main(String[] args) throws InterruptedException {
+        System.out.println(String.format("Args passed in: '%s'",  args));
         List<String> worldLoaded = new ArrayList<>(WORLDS.keySet());
-        if (args.length > 0) {
+        if ((args != null) && (args.length > 1)) {
             worldLoaded = Arrays.asList(args[0].split(","));
         }
         System.out.println(String.format("Worlds available: %s", worldLoaded));
