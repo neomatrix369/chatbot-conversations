@@ -28,17 +28,23 @@ public class ConnectTheWorlds {
     public static final String ANSI_RESET = "\u001B[0m";
 
     public static void main(String[] args) throws InterruptedException {
+        List<String> worldLoaded = new ArrayList<>(WORLDS.keySet());
+        if (args.length > 0) {
+            worldLoaded = Arrays.asList(args[0].split(","));
+        }
+        System.out.println(String.format("Worlds available: %s", worldLoaded));
+
         List<Map<String, String>> messages_exchanged = new ArrayList<>();
 
         Map<String, String> each_conversation = new HashMap<>();
         while (true) {
-            for (String firstWorld : WORLDS.keySet()) {
+            for (String firstWorld : worldLoaded) {
                 Map<String, String> world = WORLDS.get(firstWorld);
                 String https_url = world.get("url");
                 String response_format = world.get("response_format");
                 String response_as_string = "";
+                String theOtherWorld = getTheOtherWorld(firstWorld, worldLoaded);
                 String messageFromTheOtherWorld = getMessageFromTheOtherWorld(firstWorld, each_conversation);
-                String theOtherWorld = getTheOtherWorld(firstWorld);
 
                 try {
                     if (response_format.toLowerCase().contains("json")) {
@@ -74,8 +80,8 @@ public class ConnectTheWorlds {
         }
     }
 
-    private static String getTheOtherWorld(String world_key) {
-        for (String key : WORLDS.keySet()) {
+    private static String getTheOtherWorld(String world_key, List<String> worlds) {
+        for (String key : worlds) {
             if (!world_key.equals(key)) {
                 return key;
             }

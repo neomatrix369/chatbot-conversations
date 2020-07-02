@@ -10,4 +10,5 @@ if [[ ! -z "${FILES_CHANGED}" ]]; then
 fi
 
 clear
-java -jar target/connecting_worlds-1.0-SNAPSHOT-shaded.jar
+WORLDS="${1:-}"
+java -jar target/connecting_worlds-1.0-SNAPSHOT-shaded.jar "${WORLDS}"
