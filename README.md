@@ -18,9 +18,17 @@ This project demonstrates a number of concepts:
 - Roberta world (Python)
 - Connecting worlds (Java)
 
+See the different worlds (chat components) in conversation with each other:
+
+![helidon-world|quarkus-world|connecting-worlds](https://user-images.githubusercontent.com/1570917/87869702-9bd79e80-c999-11ea-86d0-3cfd16aa1d84.png) 
+
+![helidon-world](https://user-images.githubusercontent.com/1570917/87869761-0ab4f780-c99a-11ea-9a36-b72e09dd63d5.png)
+![roberta-world](https://user-images.githubusercontent.com/1570917/87869763-0dafe800-c99a-11ea-836a-ccf269887997.png)
+![connecting-worlds: helidon and roberta](https://user-images.githubusercontent.com/1570917/87869767-10aad880-c99a-11ea-919b-283b23b043c8.png)
+
 ## How to build and run the projects
 
-See [How to build and run the projects](./how-to-build-and-run-the-projects.md)
+See how you can make the different worlds chat to each other, go to [How to build and run the projects](./how-to-build-and-run-the-projects.md).
 
 ## Credits
 
