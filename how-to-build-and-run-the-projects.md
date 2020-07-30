@@ -43,7 +43,7 @@ All the conversations of the three worlds: Helidon, Quarkus and Roberta are amen
 Some Eliza related resources gathered during the preparation of this demo:
 - Online version: http://manifestation.com/neurotoys/eliza.php3/
 - Wikipedia: https://en.wikipedia.org/wiki/ELIZA
-- Eliza code used in the demo: https://github.com/jthomason007/Eliza
+- Eliza code used in the demo: https://github.com/jthomason007/Eliza (it's modified further to prevent Eliza from quickly going from repeating the same dialogue again and again)
 
 ## Roberta
 

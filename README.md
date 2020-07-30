@@ -30,6 +30,8 @@ See the different worlds (chat components) in conversation with each other:
 
 See how you can make the different worlds chat to each other, go to [How to build and run the projects](./how-to-build-and-run-the-projects.md).
 
+You can also find out the underlying components that make up the NLP aspect of the chatbots there.
+
 ## Credits
 
 Credits to the original authors of the code (different projects) used in this project.
