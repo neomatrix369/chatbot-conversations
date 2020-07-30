@@ -18,6 +18,11 @@ This project demonstrates a number of concepts:
 - Roberta world (Python)
 - Connecting worlds (Java)
 
+--- 
+_**[See the demo video of the chatbots in action](https://twitter.com/theNeomatrix369/status/1287293868376039424)**_
+
+--- 
+
 See the different worlds (chat components) in conversation with each other:
 
 ![helidon-world|quarkus-world|connecting-worlds](https://user-images.githubusercontent.com/1570917/87869702-9bd79e80-c999-11ea-86d0-3cfd16aa1d84.png) 
