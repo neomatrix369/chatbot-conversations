@@ -391,11 +391,6 @@ public class Eliza {
 		return wordArray;
 	}
 
-	private boolean fileExists(String filename) {
-		File f = new File(filename);
-		return f.exists() && !f.isDirectory();
-	}
-
 	/**
 	 * Reads a file that contains keywords and responses. A line contains either a
 	 * list of keywords or response, any blank lines are ignored. All leading and
@@ -431,45 +426,41 @@ public class Eliza {
 	 * @throws FileNotFoundException
 	 */
 	private ArrayList<ArrayList<String>> loadResponseTable(String fileNameWithoutExtension) {
-		FileInputStream userFile = null;
+		InputStream userFile = null;
 
 		String fileNameWithExt = fileNameWithoutExtension + Config.RESPONSE_FILE_EXTENSION;
 
-		// TODO: this is an incorrect way to do it, not idiomatic, needs to be improved, Quarkus offers a way to inject things via annotations
-		if ( !fileExists(fileNameWithExt) ) {
-			fileNameWithExt = System.getProperty("user.dir") + "/src/test/resources/" + fileNameWithExt;
-		}
-
 		try { // Tries to load the file but will print out error if not found
-			userFile = new FileInputStream(fileNameWithExt);
+			userFile = this.getClass().getClassLoader().getResourceAsStream(fileNameWithExt);
 		} catch (NullPointerException e) {
 			System.out.println("Error reading file name");
 		} catch (Exception e) {
 			System.out.println("Error reading " + fileNameWithoutExtension);
 		}
 
-		Scanner fileScan = new Scanner(userFile);
 		ArrayList<ArrayList<String>> responseTable = new ArrayList<ArrayList<String>>();
-		int arrayCell = -1; // For cleaner code further down starts at -1 because index starts at 0.
-		boolean firstResponse = true; // So that multiple responses to keywords are in one array.
+		try (Scanner fileScan = new Scanner(userFile)) {
+			int arrayCell = -1; // For cleaner code further down starts at -1 because index starts at 0.
+			boolean firstResponse = true; // So that multiple responses to keywords are in one array.
 
-		while (fileScan.hasNextLine()) {
-			if (fileScan.hasNext("keywords")) { // Looks for key words and creates an array to put them in.
-				fileScan.next();
-				++arrayCell;
-				responseTable.add(new ArrayList<>()); // Creates the Array for the keywords.
-				responseTable.get(arrayCell).add(fileScan.nextLine().trim());
-				firstResponse = true;
-			} else if (fileScan.hasNext("") || fileScan.hasNext(" ")) { // Skips over blank lines.
-				fileScan.nextLine();
-			} else if (firstResponse) { // Creates an new Array for responses.
-				++arrayCell;
-				responseTable.add(new ArrayList<>());
-				firstResponse = false;
-				responseTable.get(arrayCell).add(fileScan.nextLine().trim());
-			} else if (!firstResponse) { // Adds other responses besides the first into the same Array as the first
-											// response.
-				responseTable.get(arrayCell).add(fileScan.nextLine().trim());
+			while (fileScan.hasNextLine()) {
+				if (fileScan.hasNext("keywords")) { // Looks for key words and creates an array to put them in.
+					fileScan.next();
+					++arrayCell;
+					responseTable.add(new ArrayList<>()); // Creates the Array for the keywords.
+					responseTable.get(arrayCell).add(fileScan.nextLine().trim());
+					firstResponse = true;
+				} else if (fileScan.hasNext("") || fileScan.hasNext(" ")) { // Skips over blank lines.
+					fileScan.nextLine();
+				} else if (firstResponse) { // Creates an new Array for responses.
+					++arrayCell;
+					responseTable.add(new ArrayList<>());
+					firstResponse = false;
+					responseTable.get(arrayCell).add(fileScan.nextLine().trim());
+				} else if (!firstResponse) { // Adds other responses besides the first into the same Array as the first
+												// response.
+					responseTable.get(arrayCell).add(fileScan.nextLine().trim());
+				}
 			}
 		}
 
