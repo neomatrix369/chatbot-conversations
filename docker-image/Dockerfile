@@ -18,11 +18,11 @@ ARG WORKDIR
 WORKDIR ${WORKDIR}
 
 ARG IMAGE_VERSION
-ARG DEEPNETTS_VERSION
+ARG CHATBOT_VERSION
 
 LABEL maintainer="Mani Sarkar"
-LABEL example_git_repo="https://github.com/neomatrix369/awesome-ai-ml-dl/tree/master/examples/deepnetts"
-LABEL deepnetts_version=${DEEPNETTS_VERSION}
+LABEL example_git_repo="https://github.com/neomatrix369/chatbot-conversations/tree/master/"
+LABEL chatbot_version=${CHATBOT_VERSION}
 LABEL graalvm_version=${GRAALVM_VERSION}-{GRAALVM_JDK_VERSION}
 LABEL version=${IMAGE_VERSION}
 
@@ -54,10 +54,10 @@ RUN ./install-java-kernel.sh --installJar
 ### Common functions
 COPY common.sh common.sh
 
-### Install DeepNetts
+### Install Chatbot
 RUN export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${JAVA_HOME}/lib/server/:${JAVA_HOME}/lib/amd64/server/ 
-COPY install-deepnetts.sh install-deepnetts.sh
-RUN ./install-deepnetts.sh
+COPY install-chatbot.sh install-chatbot.sh
+RUN ./install-chatbot.sh
 
 ### Setup user
 COPY .bashrc .bashrc_custom

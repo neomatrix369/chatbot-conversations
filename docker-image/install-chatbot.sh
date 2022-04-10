@@ -22,8 +22,8 @@ set -o pipefail
 
 source common.sh
 
-gitClone https://github.com/neomatrix369/deepnetts-communityedition "add-examples-as-tutorials"
-cd deepnetts-communityedition
+gitClone https://github.com/neomatrix369/chatbot-conversations "add-examples-as-tutorials"
+cd chatbot-conversations
 
 echo "Downloading Maven wrapper artifacts"
 curl -sL https://github.com/shyiko/mvnw/releases/download/0.1.0/mvnw.tar.gz | tar xvz
@@ -32,17 +32,7 @@ curl -sL https://github.com/shyiko/mvnw/releases/download/0.1.0/mvnw.tar.gz | ta
 (MAVEN_VERSION=3.6.3 &&
   sed -iEe "s/[0-9]\+[.][0-9]\+[.][0-9]\+/${MAVEN_VERSION}/g" .mvn/wrapper/maven-wrapper.properties)
 
-## Ideally we could have just downloaded the jars from maven central
-## But we need the below, and it's not clear if the Maven central Jars 
-## have dependencies with them:
-#
-#      "deepnetts-core-1.11.jar"
-#                 or
-#      "deepnetts-core-1.12.jar"
-#
-## and other dependencies needed for the notebooks in the 'notebooks' folder.
-
-echo "Building DeepNetts using Maven"
+echo "Building Chatbot using Maven"
 set -x
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Skipping test failures - not ideal, but to gain some speed"
@@ -51,10 +41,10 @@ echo "Skipping test failures - not ideal, but to gain some speed"
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 set +x
 
-DEEPNETTS_VERSION="1.11"
+CHATBOT_VERSION="0.1"
 
 echo "Copying the necessary jars into the notebooks folder"
 
-cp deepnetts-examples/target/deepnetts-examples-${DEEPNETTS_VERSION}.jar notebooks
+cp chatbot-conversations/target/chatbot-${CHATBOT_VERSION}.jar notebooks
 
 cd ..
