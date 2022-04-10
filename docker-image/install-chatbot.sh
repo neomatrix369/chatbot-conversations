@@ -25,18 +25,29 @@ source common.sh
 gitClone https://github.com/neomatrix369/chatbot-conversations "add-examples-as-tutorials"
 cd chatbot-conversations
 
-echo "Downloading Maven wrapper artifacts"
-curl -sL https://github.com/shyiko/mvnw/releases/download/0.1.0/mvnw.tar.gz | tar xvz
+echo "Build & Run helidon-world"
+cd helidon-world
+./mvnw package
+./run-helidon-world.sh
+cd ..
 
-# Maven version can be changed with
-(MAVEN_VERSION=3.6.3 &&
-  sed -iEe "s/[0-9]\+[.][0-9]\+[.][0-9]\+/${MAVEN_VERSION}/g" .mvn/wrapper/maven-wrapper.properties)
+echo "Build & Run quarkus-world"
+cd quarkus-world
+./mvnw package
+./run-quarkus-world.sh
+cd ..
 
-echo "Building Chatbot using Maven"
-set -x
-echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-echo "Skipping test failures - not ideal, but to gain some speed"
-./mvnw install package -Dmaven.compiler.source=11 -Dmaven.compiler.target=11
+echo "Build & Run roberta-world"
+cd roberta-world
+pip install -r requirements.txt
+./run-roberta-world.sh
+cd ..
+
+echo "Build & Run connecting_worlds"
+cd connecting_worlds
+./mvnw package
+./run-connecting-worlds.sh
+cd ..
        
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 set +x
@@ -45,6 +56,8 @@ CHATBOT_VERSION="0.1"
 
 echo "Copying the necessary jars into the notebooks folder"
 
-cp chatbot-conversations/target/chatbot-${CHATBOT_VERSION}.jar notebooks
+cp chatbot-conversations/connecting_worlds/target/connecting_worlds-*.jar notebooks
+cp chatbot-conversations/quarkus-world/target/quarkus-world-*.jar notebooks
+cp chatbot-conversations/helidon-world/target/helidon-world.jar notebooks
 
 cd ..
