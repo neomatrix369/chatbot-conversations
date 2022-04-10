@@ -11,15 +11,6 @@ import static org.hamcrest.CoreMatchers.*;
 public class MessagingResourceTest {
 
     @Test
-    public void testHelloEndpoint() {
-        given()
-          .when().get("/hello")
-          .then()
-             .statusCode(200)
-             .body(is("hello"));
-    }
-
-    @Test
     public void testMessageWithSpacesEndpoint() {
         ValidatableResponse response = given()
                 .when().get("/message/Hi Joe")
