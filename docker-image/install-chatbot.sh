@@ -25,39 +25,21 @@ source common.sh
 gitClone https://github.com/neomatrix369/chatbot-conversations "feature/add-single-dockerfile"
 cd chatbot-conversations
 
-echo "Build & Run helidon-world"
-cd helidon-world
-./mvnw package
-./run-helidon-world.sh
-cd ..
-
 echo "Build & Run quarkus-world"
 cd quarkus-world
 ./mvnw package
-./run-quarkus-world.sh
-cd ..
-
-echo "Build & Run roberta-world"
-cd roberta-world
-pip install -r requirements.txt
-./run-roberta-world.sh
+./run-quarkus-world.sh &
 cd ..
 
 echo "Build & Run connecting_worlds"
 cd connecting_worlds
 ./mvnw package
-./run-connecting-worlds.sh
+./run-connecting-worlds.sh &
 cd ..
        
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 set +x
 
 CHATBOT_VERSION="0.1"
-
-echo "Copying the necessary jars into the notebooks folder"
-
-cp chatbot-conversations/connecting_worlds/target/connecting_worlds-*.jar notebooks
-cp chatbot-conversations/quarkus-world/target/quarkus-world-*.jar notebooks
-cp chatbot-conversations/helidon-world/target/helidon-world.jar notebooks
 
 cd ..
