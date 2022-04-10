@@ -22,22 +22,16 @@ set -o pipefail
 
 source common.sh
 
-gitClone https://github.com/neomatrix369/chatbot-conversations "feature/add-single-dockerfile"
 cd chatbot-conversations
 
-echo "Build quarkus-world"
+echo "Run quarkus-world"
 cd quarkus-world
-./mvnw package &
+./run-quarkus-world.sh &
 cd ..
 
-echo "Build connecting_worlds"
+echo "Run connecting_worlds"
 cd connecting_worlds
-./mvnw package
+./run-connecting-worlds.sh
 cd ..
-       
-echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-set +x
-
-CHATBOT_VERSION="0.1"
-
+     
 cd ..

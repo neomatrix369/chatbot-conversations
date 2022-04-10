@@ -66,3 +66,7 @@ RUN rm .bashrc_custom
 
 ARG GROUP
 RUN cd ${WORKDIR} && chown -R jovyan:${GROUP} .
+
+COPY run-chatbot.sh run-chatbot.sh
+RUN chmod +x ./run-chatbot.sh
+CMD ["/run-chatbot.sh"]
