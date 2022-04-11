@@ -27,12 +27,12 @@ cd chatbot-conversations
 
 echo "Build quarkus-world"
 cd quarkus-world
-./mvnw package &
+./mvnw install package
 cd ..
 
 echo "Build connecting_worlds"
 cd connecting_worlds
-./mvnw package
+./mvnw install package
 cd ..
        
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"

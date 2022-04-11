@@ -20,8 +20,6 @@ set -e
 set -u
 set -o pipefail
 
-source common.sh
-
 cd chatbot-conversations
 
 echo "Run quarkus-world"
