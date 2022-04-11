@@ -33,69 +33,16 @@ getOpenCommand() {
   fi
 }
 
-openNotebookInBrowser() {
-	echo "**********************************"
-	echo "Running container in detached mode"
-	echo "**********************************"
-
-	CONTAINER_ID=$(docker ps | grep "${HOST_PORT}->${CONTAINER_PORT}" | awk '{print $1}' || true)
-
-	sleep 7
-
-	echo ""; echo "Displaying the missed log messages for container ${CONTAINER_ID}"
-	docker logs ${CONTAINER_ID}
-
-	URL="$(docker logs ${CONTAINER_ID} | grep ${CONTAINER_PORT}'/?token' | grep ' or http' | grep -v 'NotebookApp' | awk '{print $2}' || true)"
-	URL="${URL:-https://localhost:${HOST_PORT}}"
-	URL=${URL/${CONTAINER_PORT}/${HOST_PORT}}
-
-	echo ""; echo "********************************************************************************************************"
-	echo ""; echo "Opening Jupyter Notebook in a browser:"; echo "";
-	echo " ${URL}"
-	echo ""; echo "";
-	echo "********************************************************************************************************"; echo "";
-
-	OPEN_CMD="$(getOpenCommand)"
-	"${OPEN_CMD}" "${URL}"
-	
-	docker exec ${CONTAINER_ID} \
-	       /bin/bash -c         \
-	       "echo JAVA_HOME=${JAVA_HOME}; echo PATH=${PATH}; echo JDK_TO_USE=${JDK_TO_USE}; java -version"
-	echo "";
-	echo "****************************************************"
-	echo "Attaching back to container, with ID ${CONTAINER_ID}"
-	echo ""
-	echo "Use below command to connect to the running container via a new session/shell:"
-	echo "                docker exec -it ${CONTAINER_ID} /bin/bash"
-    echo ""
-	echo "The example Chatbot notebooks can be found in the chatbot/tutorials folder"
-	echo ""
-	echo "****************************************************"
-	echo ""; echo "You can terminate your Jupyter session with a Ctrl-C"
-	echo "";
-	docker attach ${CONTAINER_ID}
-}
-
 runContainer() {
 	askDockerUserNameIfAbsent
 	setVariables
 
-	if [[ "${NOTEBOOK_MODE}" = "true" ]]; then
-		## When run in the notebook mode (command-prompt NOT available)
-		TOGGLE_ENTRYPOINT=""; ### Disable the ENTRYPOINT & CMD directives
-		VOLUMES_SHARED="--volume "$(pwd)/shared/notebooks":${WORKDIR}/work --volume "$(pwd)"/shared:${WORKDIR}/shared";
-
-		INTERACTIVE_MODE="--detach ${INTERACTIVE_MODE}"
-	else
-		## When run in the console mode (command-prompt available)
-		TOGGLE_ENTRYPOINT="--entrypoint /bin/bash"
-		VOLUMES_SHARED="--volume "$(pwd)":${WORKDIR}/work --volume "$(pwd)"/shared:${WORKDIR}/shared"
-	fi
+	## When run in the console mode (command-prompt available)
+	TOGGLE_ENTRYPOINT="--entrypoint /bin/bash"
+	VOLUMES_SHARED="--volume "$(pwd)":${WORKDIR}/work --volume "$(pwd)"/shared:${WORKDIR}/shared"
 
 	echo "";
 	echo "Running container ${FULL_DOCKER_TAG_NAME}:${IMAGE_VERSION}"; echo ""
-
-	mkdir -p shared/notebooks
 
 	pullImage chatbot
 	${TIME_IT} docker run                                      \
@@ -108,10 +55,6 @@ runContainer() {
                 --env JAVA_OPTS=${JAVA_OPTS:-}                 \
                 ${VOLUMES_SHARED}                              \
                 "${FULL_DOCKER_TAG_NAME}:${IMAGE_VERSION}"
-
-    if [[ "${NOTEBOOK_MODE}" = "true" ]] && [[ "${OPEN_NOTEBOOK}" = "true" ]]; then
-	  openNotebookInBrowser
-    fi
 }
 
 buildImage() {
@@ -204,8 +147,6 @@ showUsageText() {
                                  --jdk [GRAALVM]
                                  --javaopts [java opt arguments]
                                  --hostport [1024-65535]
-                                 --notebookMode
-                                 --doNotOpenNotebook
                                  --cleanup
                                  --buildImage
                                  --runContainer
@@ -225,10 +166,6 @@ showUsageText() {
        --hostport            specify an available port between 0 and 65535,
                              handy when running multiple Jupyter sessions.
                              (default: 8888)
-       --notebookMode        runs the Jupyter/Jupyhai notebook server
-                             (default: opens the page in a browser)
-       --doNotOpenNotebook   when used with --notebookMode, suppresses 
-                             the opening of the notebook action
        --cleanup             (command action) remove exited containers and
                              dangling images from the local repository
        --buildImage          (command action) build the docker image
@@ -270,8 +207,6 @@ JDK_TO_USE="GRAALVM"  ### we are defaulting to GraalVM
 INTERACTIVE_MODE="--interactive --tty"
 TIME_IT="time"
 
-NOTEBOOK_MODE=false
-OPEN_NOTEBOOK=true
 HOST_PORT=8888
 CONTAINER_PORT=8888
 
@@ -295,8 +230,6 @@ while [[ "$#" -gt 0 ]]; do case $1 in
                          shift;;
   --hostport)            HOST_PORT=${2:-${HOST_PORT}};
                          shift;;
-  --notebookMode)        NOTEBOOK_MODE=true;;
-  --doNotOpenNotebook)   OPEN_NOTEBOOK=false;;
   --buildImage)          buildImage;
                          exit 0;;
   --runContainer)        runContainer;
