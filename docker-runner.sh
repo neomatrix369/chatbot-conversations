@@ -165,7 +165,7 @@ showUsageText() {
                              inside the container as it starts
        --hostport            specify an available port between 0 and 65535,
                              handy when running multiple Jupyter sessions.
-                             (default: 8888)
+                             (default: 8080)
        --cleanup             (command action) remove exited containers and
                              dangling images from the local repository
        --buildImage          (command action) build the docker image
@@ -207,8 +207,8 @@ JDK_TO_USE="GRAALVM"  ### we are defaulting to GraalVM
 INTERACTIVE_MODE="--interactive --tty"
 TIME_IT="time"
 
-HOST_PORT=8888
-CONTAINER_PORT=8888
+HOST_PORT=8080
+CONTAINER_PORT=8080
 
 if [[ "$#" -eq 0 ]]; then
 	echo "No parameter has been passed. Please see usage below:"

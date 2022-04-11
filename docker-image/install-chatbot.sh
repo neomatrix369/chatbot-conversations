@@ -25,6 +25,13 @@ source common.sh
 gitClone https://github.com/neomatrix369/chatbot-conversations "feature/add-single-dockerfile"
 cd chatbot-conversations
 
+# PATH=/opt/conda/bin:$PATH
+
+echo "Build roberta-world"
+cd roberta-world
+pip install -r requirements.txt
+cd ..
+
 echo "Build quarkus-world"
 cd quarkus-world
 ./mvnw install package
@@ -34,11 +41,6 @@ echo "Build helidon-world"
 cd helidon-world
 ./mvnw install package
 cd ..
-
-# echo "Build roberta-world"
-# cd roberta-world
-# pip install -r requirements.txt
-# cd ..
 
 echo "Build connecting_worlds"
 cd connecting_worlds
