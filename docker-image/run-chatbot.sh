@@ -32,6 +32,11 @@ cd helidon-world
 ./run-helidon-world.sh &
 cd ..
 
+echo "Run roberta-world"
+cd roberta-world
+./run-roberta-world.sh &
+cd ..
+
 echo "Run connecting_worlds"
 cd connecting_worlds
 ./run-connecting-worlds.sh
