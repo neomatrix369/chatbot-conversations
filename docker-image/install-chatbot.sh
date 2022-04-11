@@ -30,6 +30,11 @@ cd quarkus-world
 ./mvnw install package
 cd ..
 
+echo "Build helidon-world"
+cd helidon-world
+./mvnw install package
+cd ..
+
 echo "Build connecting_worlds"
 cd connecting_worlds
 ./mvnw install package

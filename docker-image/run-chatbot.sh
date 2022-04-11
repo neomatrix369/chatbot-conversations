@@ -27,6 +27,11 @@ cd quarkus-world
 ./run-quarkus-world.sh &
 cd ..
 
+echo "Run helidon-world"
+cd helidon-world
+./run-helidon-world.sh &
+cd ..
+
 echo "Run connecting_worlds"
 cd connecting_worlds
 ./run-connecting-worlds.sh
