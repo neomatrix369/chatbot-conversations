@@ -26,3 +26,7 @@ fi
 
 echo "PATH=${PATH}" 1>&2
 echo "JAVA_HOME=${JAVA_HOME}" 1>&2
+
+echo "Run chatbots"
+cd ~/
+./run-chatbot.sh
