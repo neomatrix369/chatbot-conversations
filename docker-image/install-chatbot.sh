@@ -35,10 +35,10 @@ cd helidon-world
 ./mvnw install package
 cd ..
 
-echo "Build roberta-world"
-cd roberta-world
-pip install -r requirements.txt
-cd ..
+# echo "Build roberta-world"
+# cd roberta-world
+# pip install -r requirements.txt
+# cd ..
 
 echo "Build connecting_worlds"
 cd connecting_worlds
