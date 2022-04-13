@@ -1,3 +1,4 @@
+requests
 Flask
 honcho==1.0.1
 ninja
