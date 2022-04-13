@@ -25,8 +25,6 @@ source common.sh
 gitClone https://github.com/neomatrix369/chatbot-conversations "feature/add-single-dockerfile"
 cd chatbot-conversations
 
-# PATH=/opt/conda/bin:$PATH
-
 echo "Build roberta-world"
 cd roberta-world
 pip install -r requirements.txt
