@@ -2,7 +2,7 @@ ARG GRAALVM_VERSION
 ARG GRAALVM_JDK_VERSION
 
 FROM findepi/graalvm:${GRAALVM_VERSION}-${GRAALVM_JDK_VERSION} as graal-jdk-image
-FROM jupyter/datascience-notebook as base-image
+FROM python:3.7 as base-image
 
 ### Install JDK 11 from AdoptOpenJDK images
 COPY --from=adoptopenjdk/openjdk11 /opt/java /opt/java
@@ -46,11 +46,6 @@ RUN unzip -version
 RUN git --version
 RUN vim --version
 
-### Install the Jupyter Java Kernel
-RUN wget https://github.com/neomatrix369/awesome-ai-ml-dl/releases/download/v0.1/ijava-1.3.0.zip
-COPY install-java-kernel.sh install-java-kernel.sh
-RUN ./install-java-kernel.sh --installJar
-
 ### Common functions
 COPY common.sh common.sh
 
@@ -58,14 +53,6 @@ COPY common.sh common.sh
 RUN export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${JAVA_HOME}/lib/server/:${JAVA_HOME}/lib/amd64/server/ 
 COPY install-chatbot.sh install-chatbot.sh
 RUN ./install-chatbot.sh
-
-### Setup user
-COPY .bashrc .bashrc_custom
-RUN cat .bashrc_custom >> /home/jovyan/.bashrc
-RUN rm .bashrc_custom
-
-ARG GROUP
-RUN cd ${WORKDIR} && chown -R jovyan:${GROUP} .
 
 ### Add chatbots runner
 COPY run-chatbot.sh run-chatbot.sh
