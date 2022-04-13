@@ -38,7 +38,7 @@ runContainer() {
 	setVariables
 
 	## When run in the console mode (command-prompt available)
-	TOGGLE_ENTRYPOINT="--entrypoint /bin/bash"
+	TOGGLE_ENTRYPOINT=""
 	VOLUMES_SHARED="--volume "$(pwd)":${WORKDIR}/work --volume "$(pwd)"/shared:${WORKDIR}/shared"
 
 	echo "";
@@ -70,7 +70,7 @@ buildImage() {
 	             --build-arg JAVA_11_HOME="/opt/java/openjdk"           \
 	             --build-arg GRAALVM_HOME="/opt/java/graalvm"           \
 	             --build-arg IMAGE_VERSION=${IMAGE_VERSION}             \
-	             --build-arg CHATBOT_VERSION=${CHATBOT_VERSION}           \
+	             --build-arg CHATBOT_VERSION=${CHATBOT_VERSION}         \
                  --build-arg GRAALVM_VERSION=${GRAALVM_VERSION}         \
                  --build-arg GRAALVM_JDK_VERSION=${GRAALVM_JDK_VERSION} \
 	             -t ${FULL_DOCKER_TAG_NAME}:${IMAGE_VERSION} \
