@@ -41,7 +41,7 @@ cd ..
 
 echo "Run connecting_worlds"
 cd connecting_worlds
-./run-connecting-worlds.sh &
+./run-connecting-worlds.sh
 cd ..
 
 cd ..
