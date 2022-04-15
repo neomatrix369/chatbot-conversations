@@ -45,7 +45,7 @@ runContainer() {
 	echo "Running container ${FULL_DOCKER_TAG_NAME}:${IMAGE_VERSION}"; echo ""
 
 	pullImage chatbot
-	${TIME_IT} docker run                                      \
+	time docker run                                      \
 	            --rm                                           \
                 ${INTERACTIVE_MODE}                            \
                 ${TOGGLE_ENTRYPOINT}                           \
