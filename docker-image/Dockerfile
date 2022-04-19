@@ -51,6 +51,7 @@ COPY common.sh common.sh
 
 ### Install Chatbot
 RUN export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${JAVA_HOME}/lib/server/:${JAVA_HOME}/lib/amd64/server/ 
+COPY tmp/chatbot-conversations*/ chatbot-conversations/
 COPY install-chatbot.sh install-chatbot.sh
 RUN ./install-chatbot.sh
 

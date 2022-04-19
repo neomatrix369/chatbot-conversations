@@ -65,6 +65,9 @@ buildImage() {
 
 	echo "* Fetching Chatbot docker image ${FULL_DOCKER_TAG_NAME}:${IMAGE_VERSION} from Docker Hub"
 	time docker pull ${FULL_DOCKER_TAG_NAME}:${IMAGE_VERSION} || true
+
+	echo "Copy local source code to ${IMAGES_DIR}/tmp and build image with latest changes"; echo ""
+
 	time docker build                                                   \
 	             --build-arg WORKDIR=${WORKDIR}                         \
 	             --build-arg JAVA_11_HOME="/opt/java/openjdk"           \

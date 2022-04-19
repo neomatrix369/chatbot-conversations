@@ -22,7 +22,9 @@ set -o pipefail
 
 source common.sh
 
+[ ! -d chatbot-conversations ] && \
 gitClone https://github.com/neomatrix369/chatbot-conversations "feature/add-single-dockerfile"
+
 cd chatbot-conversations
 
 echo "Build roberta-world"
