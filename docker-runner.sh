@@ -66,10 +66,15 @@ buildImage() {
 	echo "* Fetching Chatbot docker image ${FULL_DOCKER_TAG_NAME}:${IMAGE_VERSION} from Docker Hub"
 	time docker pull ${FULL_DOCKER_TAG_NAME}:${IMAGE_VERSION} || true
 
-	echo "Copy local source code to ${IMAGES_DIR}/tmp and build image with latest changes"; echo ""
-	mkdir ${IMAGES_DIR}/tmp
-	cp -rf ./*-world ${IMAGES_DIR}/tmp
-	cp -rf ./connecting_worlds ${IMAGES_DIR}/tmp
+	if [ ${NO_LOCAL} -eq 0 ]; then
+		echo "Copy local source code to ${IMAGES_DIR}/tmp with latest changes"; echo ""
+		mkdir ${IMAGES_DIR}/tmp
+		cp -rf ./*-world ${IMAGES_DIR}/tmp
+		cp -rf ./connecting_worlds ${IMAGES_DIR}/tmp
+	else
+        echo "Cleanup ${IMAGES_DIR}/tmp"; echo ""
+		rm -rf ${IMAGES_DIR}/tmp
+	fi
 
 	time docker build                                                   \
 	             --build-arg WORKDIR=${WORKDIR}                         \
@@ -172,6 +177,7 @@ showUsageText() {
        --hostport            specify an available port between 0 and 65535,
                              handy when running multiple Jupyter sessions.
                              (default: 8080)
+	   --noLocal			 ignore local changes on docker image build
        --cleanup             (command action) remove exited containers and
                              dangling images from the local repository
        --buildImage          (command action) build the docker image
@@ -198,6 +204,7 @@ setVariables() {
 	GRAALVM_VERSION=${GRAALVM_VERSION:-$(cat docker-image/graalvm_version.txt)}
 	GRAALVM_JDK_VERSION=${GRAALVM_JDK_VERSION:-$(cat docker-image/graalvm_jdk_version.txt)}
 	FULL_DOCKER_TAG_NAME="${DOCKER_USER_NAME}/${IMAGE_NAME}"
+	NO_LOCAL=${NO_LOCAL:-0}
 }
 
 #### Start of script
@@ -235,6 +242,8 @@ while [[ "$#" -gt 0 ]]; do case $1 in
   --javaopts)            JAVA_OPTS="${2:-}";
                          shift;;
   --hostport)            HOST_PORT=${2:-${HOST_PORT}};
+                         shift;;
+  --noLocal)             NO_LOCAL=1;
                          shift;;
   --buildImage)          buildImage;
                          exit 0;;
