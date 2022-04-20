@@ -23,7 +23,8 @@ set -o pipefail
 source common.sh
 
 [ ! -d chatbot-conversations ] && \
-gitClone https://github.com/neomatrix369/chatbot-conversations "feature/add-single-dockerfile"
+echo "No local source found, clonning from Github master branch..." && \
+gitClone https://github.com/neomatrix369/chatbot-conversations
 
 cd chatbot-conversations
 

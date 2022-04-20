@@ -67,6 +67,9 @@ buildImage() {
 	time docker pull ${FULL_DOCKER_TAG_NAME}:${IMAGE_VERSION} || true
 
 	echo "Copy local source code to ${IMAGES_DIR}/tmp and build image with latest changes"; echo ""
+	mkdir ${IMAGES_DIR}/tmp
+	cp -rf ./*-world ${IMAGES_DIR}/tmp
+	cp -rf ./connecting_worlds ${IMAGES_DIR}/tmp
 
 	time docker build                                                   \
 	             --build-arg WORKDIR=${WORKDIR}                         \
