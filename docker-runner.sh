@@ -66,15 +66,13 @@ buildImage() {
 	echo "* Fetching Chatbot docker image ${FULL_DOCKER_TAG_NAME}:${IMAGE_VERSION} from Docker Hub"
 	time docker pull ${FULL_DOCKER_TAG_NAME}:${IMAGE_VERSION} || true
 
-	if [ "$NO_LOCAL" = "false" ]; then
-		 echo "Copy local source code to ${IMAGES_DIR}/tmp with latest changes"; echo ""
-		 mkdir ${IMAGES_DIR}/tmp
-		 cp -rf ./*-world ${IMAGES_DIR}/tmp
-		 cp -rf ./connecting_worlds ${IMAGES_DIR}/tmp
-	else
-         echo "Cleanup ${IMAGES_DIR}/tmp"; echo ""
-		 rm -rf ${IMAGES_DIR}/tmp
-	fi
+	echo "Clean existing ${IMAGES_DIR}/tmp"; echo ""
+	rm -rf ${IMAGES_DIR}/tmp
+
+	echo "Copy local source code to ${IMAGES_DIR}/tmp with latest changes"; echo ""
+	mkdir ${IMAGES_DIR}/tmp
+	cp -rf ./*-world ${IMAGES_DIR}/tmp
+	cp -rf ./connecting_worlds ${IMAGES_DIR}/tmp
 
 	time docker build                                                   \
 	             --build-arg WORKDIR=${WORKDIR}                         \
@@ -158,7 +156,6 @@ showUsageText() {
                                  --jdk [GRAALVM]
                                  --javaopts [java opt arguments]
                                  --hostport [1024-65535]
-                                 --noLocal
 								 --cleanup
                                  --buildImage
                                  --runContainer
@@ -168,7 +165,6 @@ showUsageText() {
 
        --dockerUserName      your Docker user name as on Docker Hub
                              (mandatory with build, run and push commands)
-	   --noLocal			 ignore local changes on docker image build
        --detach              run container and detach from it,
                              return control to console
        --jdk                 name of the JDK to use (currently supports
@@ -223,8 +219,6 @@ TIME_IT="time"
 HOST_PORT=8080
 CONTAINER_PORT=8080
 
-NO_LOCAL="false"
-
 if [[ "$#" -eq 0 ]]; then
 	echo "No parameter has been passed. Please see usage below:"
 	showUsageText
@@ -237,7 +231,6 @@ while [[ "$#" -gt 0 ]]; do case $1 in
                          exit 0;;
   --dockerUserName)      DOCKER_USER_NAME="${2:-}";
                          shift;;
-  --noLocal)             NO_LOCAL="true";;
   --detach)              INTERACTIVE_MODE="--detach";
                          TIME_IT="";;
   --jdk)                 JDK_TO_USE="${2:-}";
