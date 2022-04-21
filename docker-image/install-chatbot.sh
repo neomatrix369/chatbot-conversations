@@ -22,10 +22,6 @@ set -o pipefail
 
 source common.sh
 
-[ ! -d chatbot-conversations ] && \
-echo "No local source found, clonning from Github master branch..." && \
-gitClone https://github.com/neomatrix369/chatbot-conversations
-
 cd chatbot-conversations
 
 echo "Build roberta-world"
