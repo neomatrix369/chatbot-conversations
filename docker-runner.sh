@@ -156,7 +156,7 @@ showUsageText() {
                                  --jdk [GRAALVM]
                                  --javaopts [java opt arguments]
                                  --hostport [1024-65535]
-								 --cleanup
+                                 --cleanup
                                  --buildImage
                                  --runContainer
                                  --pushImageToHub
