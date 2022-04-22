@@ -60,14 +60,12 @@ runContainer() {
 buildImage() {
 	askDockerUserNameIfAbsent
 	setVariables
+	cleanupBuildSource
 	
 	echo "Building image ${FULL_DOCKER_TAG_NAME}:${IMAGE_VERSION}"; echo ""
 
 	echo "* Fetching Chatbot docker image ${FULL_DOCKER_TAG_NAME}:${IMAGE_VERSION} from Docker Hub"
 	time docker pull ${FULL_DOCKER_TAG_NAME}:${IMAGE_VERSION} || true
-
-	echo "Clean existing ${IMAGES_DIR}/tmp"; echo ""
-	rm -rf ${IMAGES_DIR}/tmp
 
 	echo "Copy local source code to ${IMAGES_DIR}/tmp with latest changes"; echo ""
 	mkdir ${IMAGES_DIR}/tmp
@@ -86,6 +84,7 @@ buildImage() {
 	             "${IMAGES_DIR}/."
 	echo "* Finished building Chatbot docker image ${FULL_DOCKER_TAG_NAME}:${IMAGE_VERSION}"
 	
+	cleanupBuildSource
 	cleanup
 	pushImageToHub
 	cleanup
@@ -146,6 +145,11 @@ cleanup() {
 	[ ! -z "${imagesToRemove}" ] && \
 	    echo "Remove any dangling images from the local registry" && \
 	    docker rmi -f ${imagesToRemove} || true
+}
+
+cleanupBuildSource() {
+	echo "Clean existing ${IMAGES_DIR}/tmp"; echo ""
+	rm -rf ${IMAGES_DIR}/tmp
 }
 
 showUsageText() {
