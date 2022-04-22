@@ -49,6 +49,9 @@ RUN vim --version
 ### Common functions
 COPY common.sh common.sh
 
+### Local source files
+COPY ./tmp/ chatbot-conversations/
+
 ### Install Chatbot
 RUN export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${JAVA_HOME}/lib/server/:${JAVA_HOME}/lib/amd64/server/ 
 COPY install-chatbot.sh install-chatbot.sh

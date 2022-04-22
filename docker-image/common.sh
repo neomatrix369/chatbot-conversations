@@ -20,17 +20,6 @@ set -e
 set -u
 set -o pipefail
 
-gitClone() {
-	REPO_URL=$1
-	BRANCH=${2:-master}
-	REPO_FOLDER=$(echo "${REPO_URL}" | awk '{split($0,a,"/"); print a[5]}')
-	if [ -e "${REPO_FOLDER}" ]; then
-		echo "${REPO_FOLDER} already exists, aborting process, remove folder manually to perform a fresh download/update"
-	else
-		git clone --depth=1 --branch ${BRANCH} ${REPO_URL}
-	fi
-}
-
 downloadArtifact() {
 	URL=$1
 	ARTIFACT=${2}
