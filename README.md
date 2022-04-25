@@ -18,6 +18,21 @@ This project demonstrates a number of concepts:
 - Roberta world (Python)
 - Connecting worlds (Java)
 
+---
+## Getting Started
+
+### Clone repository
+```
+git clone https://github.com/neomatrix369/chatbot-conversations.git
+
+cd chatbot-conversations
+```
+
+### Run docker container
+```
+./docker-runner.sh --runContainer
+```
+
 --- 
 _**[Tweet: Making chatbots have a conversation video](https://twitter.com/theNeomatrix369/status/1287293868376039424)**_
 
