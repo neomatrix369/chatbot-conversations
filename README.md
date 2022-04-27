@@ -17,27 +17,26 @@ This project demonstrates a number of concepts:
 - Flexibility to add more chatbots
 - Ability to change the models used in place of the existing ones
 
-## Components
+## Getting Started
 
-- Helidon world (Java)
-- Quarkus world (Java)
-- Roberta world (Python)
-- Connecting worlds (Java)
-
-# Getting Started
-
-## Clone repository
+### Clone repository
 ```bash
 git clone https://github.com/neomatrix369/chatbot-conversations.git
 
 cd chatbot-conversations
 ```
 
-## Run docker container
+### Run docker container
 ```bash
 ./docker-runner.sh --runContainer
 ```
+## Components
 
+- Helidon world (Java)
+- Quarkus world (Java)
+- Roberta world (Python)
+- Connecting worlds (Java)
+  
 --- 
 _**[Tweet: Making chatbots have a conversation video](https://twitter.com/theNeomatrix369/status/1287293868376039424)**_
 
@@ -52,13 +51,13 @@ See the different worlds (chat components) in conversation with each other:
 ![roberta-world](https://user-images.githubusercontent.com/1570917/87869763-0dafe800-c99a-11ea-836a-ccf269887997.png)
 ![connecting-worlds: helidon and roberta](https://user-images.githubusercontent.com/1570917/87869767-10aad880-c99a-11ea-919b-283b23b043c8.png)
 
-# How to build and run the projects
+## How to build and run the projects
 
 See how you can make the different worlds chat to each other, go to [How to build and run the projects](./how-to-build-and-run-the-projects.md).
 
 You can also find out the underlying components that make up the NLP aspect of the chatbots there.
 
-# How to build and run the Chatbot docker container
+## How to build and run the Chatbot docker container
 
 See how you can build and run your own docker container in your machine, go to [How to build and run docker container](./how-to-build-and-run-docker-container.md).
 
