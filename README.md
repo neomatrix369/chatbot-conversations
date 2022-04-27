@@ -52,13 +52,13 @@ See the different worlds (chat components) in conversation with each other:
 ![roberta-world](https://user-images.githubusercontent.com/1570917/87869763-0dafe800-c99a-11ea-836a-ccf269887997.png)
 ![connecting-worlds: helidon and roberta](https://user-images.githubusercontent.com/1570917/87869767-10aad880-c99a-11ea-919b-283b23b043c8.png)
 
-## How to build and run the projects
+# How to build and run the projects
 
 See how you can make the different worlds chat to each other, go to [How to build and run the projects](./how-to-build-and-run-the-projects.md).
 
 You can also find out the underlying components that make up the NLP aspect of the chatbots there.
 
-## Build & Run the Chatbot docker container
+# How to build and run the Chatbot docker container
 
 See how you can build and run your own docker container in your machine, go to [How to build and run docker container](./how-to-build-and-run-docker-container.md).
 
