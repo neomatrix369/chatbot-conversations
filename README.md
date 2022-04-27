@@ -1,5 +1,11 @@
 # Chatbot conversations
 
+![](https://img.shields.io/badge/powered%20by-GraalVM-brightgreen)
+![](https://img.shields.io/badge/powered%20by-Helidon-blue)
+![](https://img.shields.io/badge/powered%20by-Quarkus-salmon)
+![](https://img.shields.io/badge/powered%20by-Flask-purple)
+![](https://img.shields.io/badge/powered%20by-Docker-blue)
+
 This project demonstrates a number of concepts:
 
 - NLP (or a simulation of it, using [Eliza](#Eliza))
@@ -18,18 +24,17 @@ This project demonstrates a number of concepts:
 - Roberta world (Python)
 - Connecting worlds (Java)
 
----
-## Getting Started
+# Getting Started
 
-### Clone repository
-```
+## Clone repository
+```bash
 git clone https://github.com/neomatrix369/chatbot-conversations.git
 
 cd chatbot-conversations
 ```
 
-### Run docker container
-```
+## Run docker container
+```bash
 ./docker-runner.sh --runContainer
 ```
 
@@ -53,36 +58,10 @@ See how you can make the different worlds chat to each other, go to [How to buil
 
 You can also find out the underlying components that make up the NLP aspect of the chatbots there.
 
-## Run the Chatbot docker container
+## Build & Run the Chatbot docker container
 
-### Build the docker container
+See how you can build and run your own docker container in your machine, go to [How to build and run docker container](./how-to-build-and-run-docker-container.md).
 
-Ensure your environment has the below variable set, or set it in your `.bashrc` or `.bash_profile` or the relevant startup script:
-
-```bash
-export DOCKER_USER_NAME="your_docker_username"
-```
-
-You must have an account on Docker hub under the above user name.
-
-```bash
-$ ./docker-runner.sh --buildImage
-
-or
-
-$ ./docker-runner.sh --dockerUserName "your_docker_username" --buildImage 
-```
-
-### Run the docker container to the command prompt
-
-
-```bash
-$ ./docker-runner.sh --runContainer
-
-or
-
-$ ./docker-runner.sh --dockerUserName "your_docker_username" --runContainer
-```
 
 ## Credits
 
