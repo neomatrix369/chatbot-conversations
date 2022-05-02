@@ -46,7 +46,8 @@ cd chatbot-conversations
 - Roberta world (Python)
 - Connecting worlds (Java)
   
---- 
+## Presentations and Social media coverage
+
 _**[Tweet: Making chatbots have a conversation video](https://twitter.com/theNeomatrix369/status/1287293868376039424)**_
 
 [![video: helidon-world|quarkus-world|connecting-worlds](https://user-images.githubusercontent.com/1570917/88921265-20fa6780-d266-11ea-8e32-9debd9dc5710.png)](https://www.youtube.com/watch?v=2daclN-yAfI&feature=youtu.be&t=2747 "Video: Chatbots talking to each other in action")
