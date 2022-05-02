@@ -1,5 +1,20 @@
 # Chatbot conversations
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+||
+![](https://img.shields.io/badge/powered%20by-GraalVM-brightgreen)
+![](https://img.shields.io/badge/powered%20by-Helidon-lightblue)
+![](https://img.shields.io/badge/powered%20by-Quarkus-salmon)
+![](https://img.shields.io/badge/powered%20by-Flask-purple)
+||
+![](https://img.shields.io/badge/java-8_|_11-blue)
+[![Python versions](https://img.shields.io/pypi/pyversions/nlp_profiler.svg)](https://pypi.org/project/nlp_profiler/) 
+||
+[![Chatbot](https://img.shields.io/docker/pulls/neomatrix369/chatbot.svg)](https://hub.docker.com/r/neomatrix369/chatbot)
+[![Chatbot](https://img.shields.io/docker/pulls/yugoccp/chatbot.svg)](https://hub.docker.com/r/yugoccp/chatbot)
+||
+[![Codeac](https://static.codeac.io/badges/2-471206886.svg "Codeac")](https://app.codeac.io/github/yugoccp/chatbot-conversations)
+
 This project demonstrates a number of concepts:
 
 - NLP (or a simulation of it, using [Eliza](#Eliza))
@@ -11,14 +26,28 @@ This project demonstrates a number of concepts:
 - Flexibility to add more chatbots
 - Ability to change the models used in place of the existing ones
 
+## Getting Started
+
+### Clone repository
+```bash
+git clone https://github.com/neomatrix369/chatbot-conversations.git
+
+cd chatbot-conversations
+```
+
+### Run docker container
+```bash
+./docker-runner.sh --runContainer
+```
 ## Components
 
 - Helidon world (Java)
 - Quarkus world (Java)
 - Roberta world (Python)
 - Connecting worlds (Java)
+  
+## Presentations and Social media coverage
 
---- 
 _**[Tweet: Making chatbots have a conversation video](https://twitter.com/theNeomatrix369/status/1287293868376039424)**_
 
 [![video: helidon-world|quarkus-world|connecting-worlds](https://user-images.githubusercontent.com/1570917/88921265-20fa6780-d266-11ea-8e32-9debd9dc5710.png)](https://www.youtube.com/watch?v=2daclN-yAfI&feature=youtu.be&t=2747 "Video: Chatbots talking to each other in action")
@@ -38,40 +67,15 @@ See how you can make the different worlds chat to each other, go to [How to buil
 
 You can also find out the underlying components that make up the NLP aspect of the chatbots there.
 
-## Run the Chatbot docker container
+## How to build and run the Chatbot docker container
 
-### Build the docker container
+See how you can build and run your own docker container in your machine, go to [How to build and run docker container](./how-to-build-and-run-docker-container.md).
 
-Ensure your environment has the below variable set, or set it in your `.bashrc` or `.bash_profile` or the relevant startup script:
-
-```bash
-export DOCKER_USER_NAME="your_docker_username"
-```
-
-You must have an account on Docker hub under the above user name.
-
-```bash
-$ ./docker-runner.sh --buildImage
-
-or
-
-$ ./docker-runner.sh --dockerUserName "your_docker_username" --buildImage 
-```
-
-### Run the docker container to the command prompt
-
-
-```bash
-$ ./docker-runner.sh --runContainer
-
-or
-
-$ ./docker-runner.sh --dockerUserName "your_docker_username" --runContainer
-```
 
 ## Credits
 
 Credits to the original authors of the code (different projects) used in this project.
+Special thanks for @yugoccp, @brjavaman and [code4.life](https://code4.life) for giving us support for this community initiative!
 
 ## Disclaimer
 
