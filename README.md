@@ -1,10 +1,19 @@
 # Chatbot conversations
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+||
 ![](https://img.shields.io/badge/powered%20by-GraalVM-brightgreen)
-![](https://img.shields.io/badge/powered%20by-Helidon-blue)
+![](https://img.shields.io/badge/powered%20by-Helidon-lightblue)
 ![](https://img.shields.io/badge/powered%20by-Quarkus-salmon)
 ![](https://img.shields.io/badge/powered%20by-Flask-purple)
-![](https://img.shields.io/badge/powered%20by-Docker-blue)
+||
+![](https://img.shields.io/badge/java-8_|_11-blue)
+[![Python versions](https://img.shields.io/pypi/pyversions/nlp_profiler.svg)](https://pypi.org/project/nlp_profiler/) 
+||
+[![Chatbot](https://img.shields.io/docker/pulls/neomatrix369/chatbot.svg)](https://hub.docker.com/r/neomatrix369/chatbot)
+[![Chatbot](https://img.shields.io/docker/pulls/yugoccp/chatbot.svg)](https://hub.docker.com/r/yugoccp/chatbot)
+||
+[![Codeac](https://static.codeac.io/badges/2-471206886.svg "Codeac")](https://app.codeac.io/github/yugoccp/chatbot-conversations)
 
 This project demonstrates a number of concepts:
 
