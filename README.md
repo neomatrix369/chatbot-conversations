@@ -75,6 +75,7 @@ See how you can build and run your own docker container in your machine, go to [
 ## Credits
 
 Credits to the original authors of the code (different projects) used in this project.
+Special thanks for @yugoccp, @brjavaman and [code4.life](https://code4.life) for giving us support for this community initiative!
 
 ## Disclaimer
 
