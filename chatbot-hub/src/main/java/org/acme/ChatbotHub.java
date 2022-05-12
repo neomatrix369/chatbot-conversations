@@ -39,6 +39,11 @@ public class ChatbotHub {
         if (message.equalsIgnoreCase("_ready_")) {
             broadcast("User " + username + " joined");
         } else {
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             broadcast(username + ": " + message);
         }
     }
