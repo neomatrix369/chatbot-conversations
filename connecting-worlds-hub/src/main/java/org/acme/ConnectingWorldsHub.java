@@ -13,7 +13,7 @@ import javax.websocket.Session;
 
 @ServerEndpoint("/chat/{username}")         
 @ApplicationScoped
-public class ChatbotHub {
+public class ConnectingWorldsHub {
 
     Map<String, Session> sessions = new ConcurrentHashMap<>();
 
