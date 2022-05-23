@@ -450,7 +450,7 @@ public class Eliza {
 		} catch (NullPointerException e) {
 			System.out.println("Error reading file name");
 		} catch (IOException e) {
-			System.out.println("Error reading" + fileNameWithoutExtension);
+			System.out.println("Error reading " + fileNameWithoutExtension);
 		}
 
 		Scanner fileScan = new Scanner(userFile);
