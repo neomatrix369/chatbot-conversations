@@ -1,4 +1,4 @@
-package org.acme;
+package org.acme.getting.started;
 
 import javax.websocket.ContainerProvider;
 import javax.enterprise.context.ApplicationScoped;

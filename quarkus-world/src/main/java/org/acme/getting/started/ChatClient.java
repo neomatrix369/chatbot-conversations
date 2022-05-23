@@ -1,4 +1,4 @@
-package org.acme;
+package org.acme.getting.started;
 
 import javax.websocket.ClientEndpoint;
 import javax.websocket.OnMessage;

@@ -4,19 +4,17 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.acme</groupId>
   <artifactId>quarkus-world</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <properties>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
-    <maven.compiler.parameters>true</maven.compiler.parameters>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <failsafe.useModulePath>false</failsafe.useModulePath>
+    <maven.compiler.release>11</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <quarkus-plugin.version>1.5.2.Final</quarkus-plugin.version>
-    <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
-    <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-    <quarkus.platform.version>1.5.2.Final</quarkus.platform.version>
-    <surefire-plugin.version>2.22.1</surefire-plugin.version>
+    <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+    <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
+    <quarkus.platform.version>2.8.3.Final</quarkus.platform.version>
+    <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -32,7 +30,15 @@
   <dependencies>
     <dependency>
       <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-arc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-websockets</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -46,30 +52,18 @@
     </dependency>
   </dependencies>
   <build>
-    <sourceDirectory>src/main/java</sourceDirectory>
-    <testSourceDirectory>src/test/java</testSourceDirectory>
-    <directory>target</directory>
-    <outputDirectory>target/classes</outputDirectory>
-    <testOutputDirectory>target/test-classes</testOutputDirectory>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-      </resource>
-    </resources>
-    <testResources>
-      <testResource>
-        <directory>src/test/resources</directory>
-      </testResource>
-    </testResources>
     <plugins>
       <plugin>
-        <groupId>io.quarkus</groupId>
+        <groupId>${quarkus.platform.group-id}</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
-        <version>${quarkus-plugin.version}</version>
+        <version>${quarkus.platform.version}</version>
+        <extensions>true</extensions>
         <executions>
           <execution>
             <goals>
               <goal>build</goal>
+              <goal>generate-code</goal>
+              <goal>generate-code-tests</goal>
             </goals>
           </execution>
         </executions>
@@ -77,6 +71,11 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${compiler-plugin.version}</version>
+        <configuration>
+          <compilerArgs>
+            <arg>-parameters</arg>
+          </compilerArgs>
+        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -84,6 +83,7 @@
         <configuration>
           <systemPropertyVariables>
             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+            <maven.home>${maven.home}</maven.home>
           </systemPropertyVariables>
         </configuration>
       </plugin>
@@ -111,6 +111,8 @@
                 <configuration>
                   <systemPropertyVariables>
                     <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+                    <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                    <maven.home>${maven.home}</maven.home>
                   </systemPropertyVariables>
                 </configuration>
               </execution>
