@@ -10,9 +10,9 @@
         <relativePath/>
     </parent>
     <groupId>io.helidon.examples</groupId>
-    <artifactId>helidon-ws-world</artifactId>
+    <artifactId>helidon-world</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>helidon-ws-world</name>
+    <name>helidon-world</name>
 
     <properties>
         <mainClass>io.helidon.examples.quickstart.se.Main</mainClass>

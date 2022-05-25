@@ -30,10 +30,8 @@ public class ChatClient extends Endpoint {
             public void onMessage(String message) {
                 System.out.println("Client OnMessage called '" + message + "'");
                 try {
-                    if (!message.startsWith("helidon")) {
-                        String eliza_response = eliza.ask(message);
-                        session.getBasicRemote().sendText(eliza_response);
-                    }
+                    String eliza_response = eliza.ask(message);
+                    session.getBasicRemote().sendText(eliza_response);
                 } catch (IOException e) {
                     System.err.println("Unexpected exception " + e);
                 }
