@@ -26,11 +26,8 @@ public class ChatClient {
     @OnMessage
     public void message(String msg, Session session) {
         System.out.println(msg);
-        // Ignore self message and only answer others messages.
-        if (!msg.startsWith(username)) {
-            String answer = _eliza.ask(msg);
-            session.getAsyncRemote().sendText(answer);
-        }
+        String answer = _eliza.ask(msg);
+        session.getAsyncRemote().sendText(answer);
     }
 
     @OnClose

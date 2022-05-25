@@ -10,4 +10,4 @@ if [[ ! -z "${FILES_CHANGED}" ]]; then
 fi
 
 clear
-java -jar target/quarkus-world-1.0-SNAPSHOT-runner.jar
+java -jar target/quarkus-app/quarkus-run.jar
