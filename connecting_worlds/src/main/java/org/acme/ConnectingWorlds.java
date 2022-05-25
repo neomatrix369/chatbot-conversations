@@ -1,7 +1,11 @@
 package org.acme;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -13,7 +17,7 @@ import javax.websocket.Session;
 
 @ServerEndpoint("/chat/{username}")         
 @ApplicationScoped
-public class ConnectingWorldsHub {
+public class ConnectingWorlds {
 
     Map<String, Session> sessions = new ConcurrentHashMap<>();
 
@@ -40,22 +44,39 @@ public class ConnectingWorldsHub {
             broadcast("User " + username + " joined");
         } else {
             try {
-                Thread.sleep(4000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            broadcast(username + ": " + message);
+            Session nextSession = getNextSession(username);
+            sendMessage(nextSession, username + ": " + message);
         }
+    }
+
+    private Session getNextSession(String username) {
+        List<Session> validSessions = sessions.entrySet().stream()
+                                            .filter(e -> e.getKey() != username)
+                                            .map(e -> e.getValue())
+                                            .collect(Collectors.toList());
+        return getRandomElement(validSessions);
+    }
+
+    private <T> T getRandomElement(List<T> list) {
+        Random rand = new Random();
+        return list.get(rand.nextInt(list.size()));
     }
 
     private void broadcast(String message) {
         sessions.values().forEach(s -> {
-            s.getAsyncRemote().sendObject(message, result ->  {
-                if (result.getException() != null) {
-                    System.out.println("Unable to send message: " + result.getException());
-                }
-            });
+            sendMessage(s, message);
         });
     }
 
+    private void sendMessage(Session nextSession, String message) {
+        nextSession.getAsyncRemote().sendObject(message, result ->  {
+            if (result.getException() != null) {
+                System.out.println("Unable to send message: " + result.getException());
+            }
+        });
+    }
 }
