@@ -109,7 +109,7 @@ The public IP addresses are fairly dynamic in nature and could be between any ra
 - use `ssh` and `docker` to make that end meet
 
 ```bash
-$ ./run-docker-container-in-the-cloud.sh
+$ ./run-chatbot-conv-app-in-the-cloud.sh
 ```
 
 #### Find out your public IP address of the currently running instance(s)

@@ -13,8 +13,10 @@ cd chatbot-conversations
 
 echo "|-----------------------------------------------------------------------------------------------------|"
 echo "|                                                                                                     |"
-echo "| ssh onto the OCI box followed by the below command:                                                 |"
+echo "| Run the below command to start the chatbot conversations:                                           |"
 echo "|                                                                                                     |"
-echo "|       $ ./run-docker-container-in-the-cloud.sh                                                       |"
+echo "|       $ ./run-chatbot-conv-app-in-the-cloud.sh                                                      |"
+echo "|                                                                                                     |"
+echo "| Or you can ssh onto the VM instance by doing this:                                                  |"
 echo "|                                                                                                     |"
 echo "|-----------------------------------------------------------------------------------------------------|"
