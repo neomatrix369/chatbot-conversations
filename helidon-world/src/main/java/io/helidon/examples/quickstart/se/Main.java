@@ -48,7 +48,7 @@ public final class Main {
      */
     static void startWebsocketClient() {
         ClientManager websocketClient = ClientManager.createClient();
-        URI websocketUri = URI.create("ws://localhost:11800/chat/helidon");
+        URI websocketUri = URI.create("ws://localhost:8080/chat/helidon");
         ClientEndpointConfig config = ClientEndpointConfig.Builder.create().build();
         try {
             websocketClient.connectToServer(new ChatClient(), config, websocketUri);
