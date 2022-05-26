@@ -26,16 +26,32 @@ public class AppStartup {
     @ConfigProperty(name = "chat.hub.host") 
     String host;
 
-    void onStart(@Observes StartupEvent ev) {               
-        // Register websocket consumers as soon the application starts
+    void onStart(@Observes StartupEvent ev) {
+        System.out.println("###################################");
+        System.out.println("## QUARKUS-WORLD WEBSOCKET MODE  ##");
+        System.out.println("###################################");
+
         try {
-            ContainerProvider.getWebSocketContainer().connectToServer(ChatClient.class, new URI(host + username));
-        } catch (DeploymentException | URISyntaxException | IOException e) {
-            throw new RuntimeException(e);
+            connectToServer();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
     void onStop(@Observes ShutdownEvent ev) {               
         System.out.println("The application is stopping...");
+    }
+
+    void connectToServer() throws InterruptedException {
+        // Register websocket consumers as soon the application starts
+        try {
+            ContainerProvider.getWebSocketContainer().connectToServer(ChatClient.class, new URI(host + username));
+        } catch (DeploymentException | IOException e) {
+            System.out.println("Failed to connect websocket server, retry connect in a few secs... ");
+            Thread.sleep(4000);
+            connectToServer();
+        } catch (URISyntaxException e) {
+            System.err.println("Error while connecting to websocket server: " + e.getMessage());
+        }
     }
 }
