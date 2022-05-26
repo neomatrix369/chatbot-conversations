@@ -24,10 +24,10 @@ source common.sh
 
 cd chatbot-conversations
 
-echo "Build roberta-world"
-cd roberta-world
-pip install -r requirements.txt
-cd ..
+# echo "Build roberta-world"
+# cd roberta-world
+# pip install -r requirements.txt
+# cd ..
 
 echo "Build quarkus-world"
 cd quarkus-world

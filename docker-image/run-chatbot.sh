@@ -32,12 +32,12 @@ cd helidon-world
 ./run-helidon-world.sh &
 cd ..
 
-echo "Run roberta-world"
-cd roberta-world
-echo "Before running Roberta let's download the necessary model."
-./download-roberta-model.sh || true
-./run-roberta-world.sh &
-cd ..
+# echo "Run roberta-world"
+# cd roberta-world
+# echo "Before running Roberta let's download the necessary model."
+# ./download-roberta-model.sh || true
+# ./run-roberta-world.sh &
+# cd ..
 
 echo "Run connecting_worlds"
 cd connecting_worlds
