@@ -35,6 +35,10 @@ public final class Main {
      * @param args command line arguments.
      */
     public static void main(final String[] args) {
+        System.out.println("###################################");
+        System.out.println("## HELIDON-WORLD WEBSOCKET MODE  ##");
+        System.out.println("###################################");
+        
         startWebsocketClient();
         startServer();
     }
@@ -49,7 +53,8 @@ public final class Main {
         try {
             websocketClient.connectToServer(new ChatClient(), config, websocketUri);
         } catch (DeploymentException | IOException e) {
-            e.printStackTrace();
+            // Retry connect to websocket server
+            startWebsocketClient();
         }
     }
 
