@@ -112,6 +112,31 @@ The public IP addresses are fairly dynamic in nature and could be between any ra
 $ ./run-docker-container-in-the-cloud.sh
 ```
 
+#### Find out your public IP address of the currently running instance(s)
+
+In order to know the public IP of the currently running instance(s) you build using terraform, please do the below:
+
+```bash
+$ ./get-instance-public-ip.sh
+```
+
+#### ssh onto the created instance(s)
+
+In order log on to the running instance(s), please do the below:
+
+```bash
+$ ssh opc@[PUBLIC IP address]
+```
+
+Username `opc` is mandatory,  the `[PUBLIC IP address]` can be found using the `./get-instance-public-ip.sh` command.
+
+As successful login, means you get the below prompt onto the VM instance, like the one below:
+
+```bash
+Last login: Thu May 26 18:46:45 2022 from 2.24.105.123
+[opc@chatbot-oci-tf-host-public-0 ~]$ 
+```
+
 ### Recover/retry from failed attempt
 
 - Apply the fix to the configuration or script or both
@@ -148,6 +173,7 @@ You should see something like this at the end of a successful run:
 .
 Destroy complete! Resources: 7 destroyed.
 ```
+
 
 ### Security
 
