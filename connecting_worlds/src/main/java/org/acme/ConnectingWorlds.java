@@ -3,23 +3,43 @@ package org.acme;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
+import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
-import javax.websocket.Session;
 
+import io.quarkus.runtime.Startup;
+import io.quarkus.runtime.StartupEvent;
+
+@Startup
 @ServerEndpoint("/chat/{username}")         
 @ApplicationScoped
 public class ConnectingWorlds {
 
     Map<String, Session> sessions = new ConcurrentHashMap<>();
+
+    // https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
+    public static final String WHITE_BRIGHT = "\033[0;97m";
+    public static final String WHITE_BOLD_BRIGHT = "\033[1;97m"; // WHITE
+    public static final String RED = "\033[0;31m";     // RED
+    public static final String BLUE = "\033[0;34m";    // BLUE
+    public static final String GREEN = "\033[0;32m";   // GREEN
+    public static final String ANSI_RESET = "\u001B[0m";
+
+    void onStart(@Observes StartupEvent ev) {
+        System.out.println("#######################################");
+        System.out.println("## CONNECTING-WORLDS WEBSOCKET MODE  ##");
+        System.out.println("#######################################");
+    }
 
     @OnOpen
     public void onOpen(Session session, @PathParam("username") String username) {
@@ -41,22 +61,34 @@ public class ConnectingWorlds {
     @OnMessage
     public void onMessage(String message, @PathParam("username") String username) {
         if (message.equalsIgnoreCase("_ready_")) {
+            System.out.printf("%sUser %s joined%n", GREEN, username);
+
             broadcast("User " + username + " joined");
+
         } else {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            System.out.printf("%s%s%s: %s%n", GREEN, username, ANSI_RESET, message);
+
+            if (sessions.size() > 1) {
+                try {
+                    Thread.sleep(2000);
+                    
+                    Entry<String, Session> otherWorld = getOtherWorld(username);
+                    sendMessage(otherWorld.getValue(), message);
+
+                    System.out.printf("%s%s => %s%s: %s%n", GREEN, username, otherWorld.getKey(), ANSI_RESET, message);
+                
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.printf("%s%s is alone in the room...%n", GREEN, username);
             }
-            Session nextSession = getNextSession(username);
-            sendMessage(nextSession, username + ": " + message);
         }
     }
 
-    private Session getNextSession(String username) {
-        List<Session> validSessions = sessions.entrySet().stream()
+    private Entry<String, Session> getOtherWorld(String username) {
+        List<Entry<String, Session>> validSessions = sessions.entrySet().stream()
                                             .filter(e -> e.getKey() != username)
-                                            .map(e -> e.getValue())
                                             .collect(Collectors.toList());
         return getRandomElement(validSessions);
     }
