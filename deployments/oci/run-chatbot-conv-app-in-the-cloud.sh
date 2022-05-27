@@ -8,6 +8,12 @@ INSTANCE_PUBLIC_IP="$(get-instance-public-ip.sh)"
 echo "Public IP address of the cloud instance running is ${INSTANCE_PUBLIC_IP}"
 
 exit_code=0
+#
+#-t: Force pseudo-terminal allocation. This can be used to execute arbitrary
+# screen-based programs on a remote machine, which can be very useful,
+# e.g. when implementing menu services. Multiple -t options force tty
+# allocation, even if ssh has no local tty.
+#
 ssh opc@${INSTANCE_PUBLIC_IP} \
     -t 'cd chatbot-conversations; ./docker-runner.sh --runContainer' \
     || exit_code=$? && true
