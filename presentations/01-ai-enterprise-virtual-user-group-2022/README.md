@@ -6,7 +6,7 @@ See [slides (PDF)](See-how-we-contribute-to-an-AI-project-live,-and-you-can-do-t
 
 ### Video
 
-See [YouTube](https://place-holder).
+See [YouTube](https://www.youtube.com/watch?v=vhlPE7rkN_g).
 
 ### Speakers
 
