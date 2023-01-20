@@ -3,7 +3,7 @@
 set -eu
 set -o pipefail
 
-INSTANCE_PUBLIC_IP="$(get-instance-public-ip.sh)"
+INSTANCE_PUBLIC_IP="$(./get-instance-public-ip.sh)"
 
 echo "Public IP address of the cloud instance running is ${INSTANCE_PUBLIC_IP}"
 
@@ -15,6 +15,7 @@ exit_code=0
 # allocation, even if ssh has no local tty.
 #
 ssh opc@${INSTANCE_PUBLIC_IP} \
+	-i ${TF_VAR_private_key_path}
     -t 'cd chatbot-conversations; ./docker-runner.sh --runContainer' \
     || exit_code=$? && true
 
