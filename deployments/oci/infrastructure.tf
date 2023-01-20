@@ -47,12 +47,8 @@ variable "instance_image_ocid" {
     us-ashburn-1   = "ocid1.image.oc1.iad.aaaaaaaageeenzyuxgia726xur4ztaoxbxyjlxogdhreu3ngfj2gji3bayda"
     eu-frankfurt-1 = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaitzn6tdyjer7jl34h2ujz74jwy5nkbukbh55ekp6oyzwrtfa4zma"
     uk-london-1    = "ocid1.image.oc1.uk-london-1.aaaaaaaa32voyikkkzfxyo4xbdmadc2dmvorfxxgdhpnk6dw64fa3l4jh7wa"
-    sa-saopaulo-1  = "ocid1.image.oc1.sa-saopaulo-1.aaaaaaaa3ibxbkfvmcdyshvkuzhpc2wx2ofmpjyyjf5tyh3eqge7vc7d5rtq"
+    sa-saopaulo-1  = "ocid1.image.oc1.sa-saopaulo-1.aaaaaaaacozahqomcuvlkoa7agf6xa7yaa43sxpcqaoc422f6xrkwdrxfwma"
   }
-}
-
-variable "init_path" {
-  default = "./init.sh"
 }
 
 provider "oci" {
@@ -173,7 +169,7 @@ resource "oci_core_instance" "oci_oci_instance" {
 
   metadata = {
     ssh_authorized_keys = "${var.ssh_public_key}"
-    user_data           = "${base64encode(file(var.init_path))}"
+    user_data           = "${base64encode(file("./init.sh"))}"
   }
 
   source_details {
