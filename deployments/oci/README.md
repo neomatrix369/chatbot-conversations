@@ -179,6 +179,30 @@ Destroy complete! Resources: 7 destroyed.
 
 Please beware when using this in your target domain depending on the prerequisites you need to conform to. This example is good for learning and illustration purposes, please do NOT deploy it in production or public facing environments without taking into consideration security and other requirements.
 
+### Setup specific region
+- Go to https://cloud.oracle.com/compute/instances?region=[region] (eg.: region=sa-saopaulo-1) to find the name of the VM shape (for example: VM.Standard.E2.1.Micro) and instance image name (Image: Oracle Linux 8 and Image build: 2022.12.15-0) 
+- Add region OCID to the infrastructure.tf
+```bash
+variable "instance_image_ocid" {
+  type = map(string)
+
+  default = {
+
+    # ...
+
+    sa-saopaulo-1  = "ocid1.image.oc1.sa-saopaulo-1.aaaaaaaa3ibxbkfvmcdyshvkuzhpc2wx2ofmpjyyjf5tyh3eqge7vc7d5rtq"
+  }
+}
+```
+
+### Override default VM shape
+- Go to the all images page (https://docs.oracle.com/en-us/iaas/images/) and use the image name and build to search proper region related image OCID (for example: Oracle-Linux-8.6-2022.12.15-0) and take the OCID for sa-saopaulo-1 (ocid1.image.oc1.sa-saopaulo-1.aaaaaaaa3ibxbkfvmcdyshvkuzhpc2wx2ofmpjyyjf5tyh3eqge7vc7d5rtq)
+- Add instance shape variable to your credentials.rc
+```bash
+export TF_VAR_instance_shape="VM.Standard.E2.1.Micro"
+```
+
+
 ### OCI and Terraform resources
 
 - For more information on Terraform infrastructure management see: [Terraform for OCI](https://www.terraform.io/docs/providers/oci/index.html)
