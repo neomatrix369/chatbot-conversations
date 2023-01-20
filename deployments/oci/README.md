@@ -202,6 +202,14 @@ variable "instance_image_ocid" {
 export TF_VAR_instance_shape="VM.Standard.E2.1.Micro"
 ```
 
+### Use specific init script
+`init.sh` script was written to install and setup docker on the hosts for default image.
+If you change the image, you might need to write and run your own script.
+- Create your own init script to install docker on the host (eg: init.oracle8.sh)
+- Add init path variable to your credentials.rc
+```bash
+export TF_VAR_init_path="./init.oracle8.sh"
+```
 
 ### OCI and Terraform resources
 
