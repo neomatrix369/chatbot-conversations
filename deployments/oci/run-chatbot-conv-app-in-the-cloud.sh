@@ -7,6 +7,13 @@ INSTANCE_PUBLIC_IP="$(./get-instance-public-ip.sh)"
 
 echo "Public IP address of the cloud instance running is ${INSTANCE_PUBLIC_IP}"
 
+echo ""
+echo "Please use the below command to ssh onto your Cloud instance"
+echo ""
+echo "ssh opc@${INSTANCE_PUBLIC_IP} \ "
+echo "  -i ${TF_VAR_private_key_path} \ "
+echo ""
+
 exit_code=0
 #
 #-t: Force pseudo-terminal allocation. This can be used to execute arbitrary
