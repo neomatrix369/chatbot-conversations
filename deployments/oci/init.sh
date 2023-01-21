@@ -6,7 +6,7 @@ groupadd docker
 usermod -aG docker opc
 
 # Install docker
-if $(uname -o) == "GNU/Linux"; then
+if "$(uname -o)" == "GNU/Linux"; then
     echo 'Running on CentOS'
     yum install -y docker-engine
 else 
