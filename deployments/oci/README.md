@@ -126,6 +126,14 @@ In order log on to the running instance(s), please do the below:
 
 ```bash
 $ ssh opc@[PUBLIC IP address]
+
+or
+
+$ ssh opc@$(./get-instance-public-ip.sh)
+
+or 
+
+$ ssh opc@$(./get-instance-public-ip.sh) -i "${TF_VAR_private_key_path}"
 ```
 
 Username `opc` is mandatory,  the `[PUBLIC IP address]` can be found using the `./get-instance-public-ip.sh` command.
