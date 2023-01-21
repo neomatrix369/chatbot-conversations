@@ -6,15 +6,15 @@ groupadd docker
 usermod -aG docker opc
 
 # Install docker
-if [[ "$(uname -o)" == "GNU/Linux" ]]; then
-    echo 'Running on CentOS'
-    yum install -y docker-engine
-else 
-    echo 'Running on Oracle Linux or another Linux'
+if [[ "$(cat /etc/oracle-release || true)" == "Oracle Linux Server release 8.6" ]]; then
+    echo 'Running on Oracle Linux 8.6'
     sudo dnf install -y dnf-utils zip unzip
     sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
     sudo dnf remove -y runc
     sudo dnf install -y docker-ce --nobest
+else 
+    echo 'Running on CentOS'
+    yum install -y docker-engine
 fi
 
 systemctl start docker
