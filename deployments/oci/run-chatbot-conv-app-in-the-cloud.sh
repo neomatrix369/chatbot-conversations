@@ -15,7 +15,7 @@ exit_code=0
 # allocation, even if ssh has no local tty.
 #
 ssh opc@${INSTANCE_PUBLIC_IP} \
-	-i ${TF_VAR_private_key_path}
+	-i ${TF_VAR_private_key_path} \
     -t 'cd chatbot-conversations; ./docker-runner.sh --runContainer' \
     || exit_code=$? && true
 
