@@ -11,6 +11,8 @@
 [![Chatbot](https://img.shields.io/docker/pulls/neomatrix369/chatbot.svg)](https://hub.docker.com/r/neomatrix369/chatbot)
 [![Chatbot](https://img.shields.io/docker/pulls/yugoccp/chatbot.svg)](https://hub.docker.com/r/yugoccp/chatbot)
 ||
+[![](https://img.shields.io/badge/powered%20by-Oracle%20Cloud%20Infrastructure-crimson)](https://www.oracle.com/cloud/free/)
+||
 [![Codeac](https://static.codeac.io/badges/2-471206886.svg "Codeac")](https://app.codeac.io/github/yugoccp/chatbot-conversations)
 
 This project demonstrates a number of concepts:
@@ -49,6 +51,8 @@ cd chatbot-conversations
 _**[Tweet: Making chatbots have a conversation video](https://twitter.com/theNeomatrix369/status/1287293868376039424)**_
 
 [![video: helidon-world|quarkus-world|connecting-worlds](https://user-images.githubusercontent.com/1570917/88921265-20fa6780-d266-11ea-8e32-9debd9dc5710.png)](https://www.youtube.com/watch?v=2daclN-yAfI&feature=youtu.be&t=2747 "Video: Chatbots talking to each other in action")
+
+[![video: 'Chatbot Conversations' with Mani Sarkar and Yugo Sakamoto](https://user-images.githubusercontent.com/1570917/235550715-a469cd96-c422-4f55-ba4d-e27c9684b2ba.png)](https://www.youtube.com/watch?v=vhlPE7rkN_g "Video: 'Chatbot Conversations' with Mani Sarkar and Yugo Sakamoto")
 
 --- 
 
