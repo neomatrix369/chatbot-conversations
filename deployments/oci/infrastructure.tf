@@ -180,6 +180,21 @@ resource "oci_core_instance" "oci_oci_instance" {
   timeouts {
     create = "60m"
   }
+  
+  provisioner "remote-exec" {
+    inline = [
+      "echo 'Waiting for user data script to finish'",  
+      "cloud-init status --wait > /dev/null",
+      "echo 'User data script completed'"
+    ]
+    connection {
+      type        = "ssh"
+      timeout     = "30m"
+      user        = "opc"
+      private_key = "${var.ssh_private_key}"
+      host        = "${oci_core_instance.oci_oci_instance.*.public_ip[count.index % var.num_instances]}"
+    }
+  }
 }
 
 resource "null_resource" "remote-exec" {
