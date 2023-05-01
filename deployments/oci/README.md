@@ -60,7 +60,7 @@ Here is a list of resources on where to look for each of the above resources:
 - Use the left-hand [Navigation menu > Identity > Compartments](https://cloud.oracle.com/identity/compartments), select the compartment to find out about `[COMPARMENT_OCID]` where you should look for the **OCID** field
 - Go to `Profile Icon` > `User Settings` or left-hand [Navigation menu > Identity > Users](https://cloud.oracle.com/identity/users) > Select the user from the list (yourself), look for the **OCID** field to find out about `[USER_OCID]`
 - Go to [Navigation menu > Identity > Users](https://cloud.oracle.com/identity/users) > Select the user from the list (yourself), then from under **Resource**, click on **API Keys > Add API Key**. Here you can choose to either generate a new key-pair or use an existing one (choose the Public key file or paste it's content), once done, you are shown the finger print for the `[TF_VAR_fingerprint]` variable
-- And depending on the above choice, make sure you note the location of the Provate key of the key-pair from the above selection, this is needed for `[TF_VAR_private_key_path]`
+- And depending on the above choice, make sure you note the location of the Private key of the key-pair from the above selection, this is needed for `[TF_VAR_private_key_path]`
 Other resources [1](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#five) | [2](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#two) | [3](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#four) | [4](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#five) (look for How to Upload the Public Key)
 - Refer to [Regions page](https://cloud.oracle.com/regions/infrastructure) to look for the Region Identifier that is relevant to your account for the `[TF_VAR_region]` field
 - `[TF_VAR_ssh_public_key]` and `[TF_VAR_ssh_private_key]` are already known to you, they are referring to the contents of the keys in `~/.ssh/id_rsa.pub` and `~/.ssh/id_rsa` files respectively.
@@ -126,6 +126,14 @@ In order log on to the running instance(s), please do the below:
 
 ```bash
 $ ssh opc@[PUBLIC IP address]
+
+or
+
+$ ssh opc@$(./get-instance-public-ip.sh)
+
+or 
+
+$ ssh opc@$(./get-instance-public-ip.sh) -i "${TF_VAR_private_key_path}"
 ```
 
 Username `opc` is mandatory,  the `[PUBLIC IP address]` can be found using the `./get-instance-public-ip.sh` command.
@@ -178,6 +186,29 @@ Destroy complete! Resources: 7 destroyed.
 ### Security
 
 Please beware when using this in your target domain depending on the prerequisites you need to conform to. This example is good for learning and illustration purposes, please do NOT deploy it in production or public facing environments without taking into consideration security and other requirements.
+
+### Setup specific region
+- Go to https://cloud.oracle.com/compute/instances?region=[region] (eg.: region=sa-saopaulo-1) to find the name of the VM shape (for example: VM.Standard.E2.1.Micro) and instance image name (Image: Oracle Linux 8 and Image build: 2022.12.15-0) 
+- Add region OCID to the infrastructure.tf
+```bash
+variable "instance_image_ocid" {
+  type = map(string)
+
+  default = {
+
+    # ...
+
+    sa-saopaulo-1  = "ocid1.image.oc1.sa-saopaulo-1.aaaaaaaa3ibxbkfvmcdyshvkuzhpc2wx2ofmpjyyjf5tyh3eqge7vc7d5rtq"
+  }
+}
+```
+
+### Override default VM shape
+- Go to the all images page (https://docs.oracle.com/en-us/iaas/images/) and use the image name and build to search proper region related image OCID (for example: Oracle-Linux-8.6-2022.12.15-0) and take the OCID for sa-saopaulo-1 (ocid1.image.oc1.sa-saopaulo-1.aaaaaaaa3ibxbkfvmcdyshvkuzhpc2wx2ofmpjyyjf5tyh3eqge7vc7d5rtq)
+- Add instance shape variable to your credentials.rc
+```bash
+export TF_VAR_instance_shape="VM.Standard.E2.1.Micro"
+```
 
 ### OCI and Terraform resources
 
