@@ -52,10 +52,13 @@ _**[Tweet: Making chatbots have a conversation video](https://twitter.com/theNeo
 [![video: helidon-world|quarkus-world|connecting-worlds](https://user-images.githubusercontent.com/1570917/88921265-20fa6780-d266-11ea-8e32-9debd9dc5710.png)](https://www.youtube.com/watch?v=2daclN-yAfI&feature=youtu.be&t=2747 "Video: Chatbots talking to each other in action")
 
 _**[Video: 'Chatbot Conversations' with Mani Sarkar and Yugo Sakamoto](https://www.youtube.com/watch?v=vhlPE7rkN_g)**_
-[![video: 'Chatbot Conversations' with Mani Sarkar and Yugo Sakamoto](https://user-images.githubusercontent.com/1570917/235550715-a469cd96-c422-4f55-ba4d-e27c9684b2ba.png)](https://www.youtube.com/watch?v=vhlPE7rkN_g "Video: 'Chatbot Conversations' with Mani Sarkar and Yugo Sakamoto")
+[![video: Chatbot Conversations with Mani Sarkar and Yugo Sakamoto](https://user-images.githubusercontent.com/1570917/235550715-a469cd96-c422-4f55-ba4d-e27c9684b2ba.png)](https://www.youtube.com/watch?v=vhlPE7rkN_g "Video: 'Chatbot Conversations' with Mani Sarkar and Yugo Sakamoto")
 
 _**[Video: OotBD: Open source in the Cloud: 3 tools that helped us to collaborate](https://www.youtube.com/watch?v=pKsh9eWFnIk)**_
 [![video: OotBD: Open source in the Cloud: 3 tools that helped us to collaborate](https://github.com/neomatrix369/chatbot-conversations/assets/1570917/4c1881d5-15c8-4bb1-b564-b5669c723b9c)](https://www.youtube.com/watch?v=pKsh9eWFnIk "Video: OotBD: Open source in the Cloud: 3 tools that helped us to collaborate")
+
+_**[Video: OotBD - Working with Open Source Projects](https://www.youtube.com/watch?v=C26049wNbtI)**_
+[![OotBD - Working with Open Source Projects](https://github.com/neomatrix369/chatbot-conversations/assets/1570917/40d3ec6d-4acc-4fed-8642-6b48c70ea79f)](https://www.youtube.com/watch?v=C26049wNbtI "Video: OotBD - Working with Open Source Projects")
 
 --- 
 
