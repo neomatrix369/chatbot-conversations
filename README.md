@@ -55,7 +55,6 @@ _**[Video: 'Chatbot Conversations' with Mani Sarkar and Yugo Sakamoto](https://w
 [![video: 'Chatbot Conversations' with Mani Sarkar and Yugo Sakamoto](https://user-images.githubusercontent.com/1570917/235550715-a469cd96-c422-4f55-ba4d-e27c9684b2ba.png)](https://www.youtube.com/watch?v=vhlPE7rkN_g "Video: 'Chatbot Conversations' with Mani Sarkar and Yugo Sakamoto")
 
 _**[Video: OotBD: Open source in the Cloud: 3 tools that helped us to collaborate](https://www.youtube.com/watch?v=pKsh9eWFnIk)**_
-
 [![video: OotBD: Open source in the Cloud: 3 tools that helped us to collaborate](https://github.com/neomatrix369/chatbot-conversations/assets/1570917/4c1881d5-15c8-4bb1-b564-b5669c723b9c)](https://www.youtube.com/watch?v=pKsh9eWFnIk "Video: OotBD: Open source in the Cloud: 3 tools that helped us to collaborate")
 
 --- 
