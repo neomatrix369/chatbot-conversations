@@ -51,7 +51,7 @@ or
 ./download-roberta-model.sh large
 ```
 
-Although there is a chance the urls might change the shell script might not work.
+Although there is a chance the urls might change, the shell script might not work.
 
 If you download a new kind of model other then Roberta Base, then you would need to change the way it's loaded in the Flask app `flash-torch-app.py` in one place:
 
