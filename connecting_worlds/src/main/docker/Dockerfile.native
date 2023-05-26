@@ -7,11 +7,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native -t quarkus/quarkus-ws-world .
+# docker build -f src/main/docker/Dockerfile.native -t quarkus/chatbot-hub .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/quarkus-ws-world
+# docker run -i --rm -p 8080:8080 quarkus/chatbot-hub
 #
 ###
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.5
